@@ -49,6 +49,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         _moveDirection = _move.ReadValue<Vector2>();
-        Debug.Log(_moveDirection);
+        //Debug.Log(_moveDirection);
     }
 }
