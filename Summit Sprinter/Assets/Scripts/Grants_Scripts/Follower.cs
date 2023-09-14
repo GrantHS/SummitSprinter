@@ -6,9 +6,15 @@ public class Follower : MonoBehaviour
 {
     public GameObject target;
 
-    //[SerializeField]
-    //[Tooltip("How far on the Z-axis this object will follow.")]
+    [SerializeField]
+    [Tooltip("How far on the Z-axis this object will follow.")]
     private float _trackingDistance;
+
+    /*
+    [SerializeField]
+    [Tooltip("How high up the camara is going to be relative to the target")]
+    private float _trackingHeight;
+    */
 
     private Vector3 _targetLocation;
     private Vector3 _trackDirection;
@@ -16,8 +22,10 @@ public class Follower : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        _trackingDistance = this.transform.position.z;
+        _targetLocation = target.transform.position;
+        _currentLocation = target.transform.position;
+        _currentLocation.z = _trackingDistance;
+        this.transform.position = _currentLocation;
        
     }
 
