@@ -7,23 +7,19 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private float _playerSpeed = 25f;
-    private float _wheelSpeed = 40f;
-    private float _rotateSpeed = 10f;
+    //private float _wheelSpeed = 40f;
+    //private float _rotateSpeed = 10f;
     private InputAction _move;
     private Vector2 _moveDirection;
-    public Wheel[] _wheels = new Wheel[4];
 
     public PlayerInputActions playerControls;
     private Rigidbody rb;
 
-    public float minChassisHeight;
-    public float suspensionStrength;
     private bool _isGrounded;
 
     private void Awake()
     {
         playerControls = new PlayerInputActions();
-        _wheels = GetComponentsInChildren<Wheel>();
     }
 
     private void OnEnable()
@@ -46,10 +42,17 @@ public class PlayerMovement : MonoBehaviour
         //Vector3.Clamp
     }
 
+    public void Move(InputAction.CallbackContext context)
+    {
+        _moveDirection = _move.ReadValue<Vector2>();
+    }
+
     private void FixedUpdate()
     {
+
         rb.AddForce(_moveDirection * _playerSpeed, ForceMode.Force);
 
+        /*
         //Accelerate
         if (_isGrounded)
         {
@@ -64,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Spin vehicle
         rb.AddTorque(_moveDirection * _playerSpeed, ForceMode.Force);
+        */
     }
 
 
@@ -71,55 +75,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _moveDirection = -_move.ReadValue<Vector2>();
+        _moveDirection = _move.ReadValue<Vector2>();
         Debug.Log(_moveDirection);
-    }
-
-    private void ActiveSuspension()
-    {
-        float maxWheelHeight = 0.0f;
-        int groundedWheels =0;
-        Vector3 chassisPosition = this.transform.position;
-        chassisPosition.y -= this.transform.localScale.y / 2;
-
-        foreach (Wheel wheel in _wheels)
-        {
-            /*
-            if (wheel.isGrounded)
-            {
-                groundedWheels++;
-                Debug.Log(groundedWheels + " wheels on the ground");
-            }
-            */
-
-            if(groundedWheels >= 1) _isGrounded = true;
-        }
-
-        if (_isGrounded)
-        {
-            int i = 0;
-            foreach (Wheel wheel in _wheels)
-            {
-                i++;
-                Debug.Log("Wheel " + i + "'s Y position: " + wheel.transform.position.y);
-                if (wheel.transform.position.y > maxWheelHeight)
-                {
-                    maxWheelHeight = wheel.transform.position.y;
-                }
-            }
-            Debug.Log("Max wheel height: " + maxWheelHeight);
-
-            if(chassisPosition.y < maxWheelHeight + minChassisHeight)
-            {
-                chassisPosition.y += suspensionStrength;
-                transform.position = chassisPosition;
-                if (chassisPosition.y >= maxWheelHeight + minChassisHeight)
-                {
-                    chassisPosition.y = maxWheelHeight + minChassisHeight;
-                    transform.position = chassisPosition;
-                }
-            }
-        }
-        Debug.Log(chassisPosition);
+        if (!_move.enabled) Debug.Log("Null action list");
     }
 }
