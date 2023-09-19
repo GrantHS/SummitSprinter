@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private float _wheelSpeed = 40f;
     private float _rotateSpeed = 10f;
     private InputAction _move;
-    private Vector2 _moveDirection = Vector2.zero;
+    private Vector2 _moveDirection;
     public Wheel[] _wheels = new Wheel[4];
 
     public PlayerInputActions playerControls;
@@ -43,17 +43,17 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Vector3.Clamp
+        //Vector3.Clamp
     }
 
     private void FixedUpdate()
     {
-        ActiveSuspension();
+        rb.AddForce(_moveDirection * _playerSpeed, ForceMode.Force);
 
         //Accelerate
         if (_isGrounded)
         {
-            rb.AddForce(_moveDirection * _playerSpeed, ForceMode.Force);
+            
         }
         
         //Rotate wheels
@@ -84,11 +84,13 @@ public class PlayerMovement : MonoBehaviour
 
         foreach (Wheel wheel in _wheels)
         {
+            /*
             if (wheel.isGrounded)
             {
                 groundedWheels++;
                 Debug.Log(groundedWheels + " wheels on the ground");
             }
+            */
 
             if(groundedWheels >= 1) _isGrounded = true;
         }
