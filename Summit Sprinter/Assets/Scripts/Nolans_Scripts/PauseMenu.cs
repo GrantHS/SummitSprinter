@@ -1,23 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
     public bool isPaused = false;
     public GameObject pauseMenuCanvas;
-    public GameObject endMenuCanvas;
-    public GameObject youDiedCanvas;
+    //public GameObject endMenuCanvas;
 
     void Start()
     {
         pauseMenuCanvas.SetActive(false);
+        TouchSimulation.Enable();
     }
 
 
     void Update()
     {
+       /*
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
@@ -29,20 +31,15 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
+       */
     }
 
     public void Pause()
     {
-        if (!endMenuCanvas.activeSelf && !youDiedCanvas.activeSelf)
-        {
-            Time.timeScale = 0f;
-            pauseMenuCanvas.SetActive(true);
-            isPaused = true;
-
-            //Disable the cursor
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+       Debug.Log("paused"); 
+       Time.timeScale = 0f;
+       pauseMenuCanvas.SetActive(true);
+       isPaused = true;
         
     }
 
@@ -51,10 +48,6 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         pauseMenuCanvas.SetActive(false);
         isPaused = false;
-
-        //Enable the cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     public void OpenMainMenu()
