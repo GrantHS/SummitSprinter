@@ -6,7 +6,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float _playerSpeed = 25f;
+    private float _currentVelocity = 0f;
+    private float _topSpeed =10f;
+    private float _torque = 5f;
+    private float _acceleration = 3f;
     //private float _wheelSpeed = 40f;
     //private float _rotateSpeed = 10f;
     private InputAction _move;
@@ -15,16 +18,19 @@ public class PlayerMovement : MonoBehaviour
     public PlayerInputActions playerControls;
     private Rigidbody rb;
 
-    private bool _isGrounded;
+    public bool isGrounded = true;
+    private bool _goingForward = false;
+    private bool _goingBackwards = false;
 
     private void Awake()
     {
         playerControls = new PlayerInputActions();
+
     }
 
     private void OnEnable()
     {
-        _move = playerControls.PlayerMovement.Move;
+        _move = playerControls.PlayerMovement.NewMove;
         _move.Enable();
         rb = this.GetComponent<Rigidbody>();
 
@@ -49,24 +55,90 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        rb.AddForce(_moveDirection * _playerSpeed, ForceMode.Force);
-
-        /*
-        //Accelerate
-        if (_isGrounded)
+        //Debug.Log("Current Speed: " + _currentVelocity);
+        if (_goingForward)
         {
             
+            rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
+            rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
+
+            if(_currentVelocity < _topSpeed)
+            {
+                _currentVelocity += _acceleration * Time.deltaTime;
+            }
+            
+        }
+        else if(_goingBackwards)
+        {
+            rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
+            rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
+
+            if (_currentVelocity < _topSpeed)
+            {
+                _currentVelocity -= _acceleration * Time.deltaTime;
+            }
+        }
+        else
+        {
+            if(_currentVelocity > 0 )
+            {
+                _currentVelocity -= _acceleration * Time.deltaTime;
+            }
+            else if( _currentVelocity < 0 )
+            {
+                _currentVelocity += _acceleration * Time.deltaTime;
+            }
         }
         
-        //Rotate wheels
-        foreach (Wheel wheel in _wheels)
-        {
-            rb.AddTorque(_moveDirection * _wheelSpeed, ForceMode.Force);
-        }
 
-        //Spin vehicle
-        rb.AddTorque(_moveDirection * _playerSpeed, ForceMode.Force);
+    }
+
+    public void Forward()
+    {
+        //Debug.Log("Forward");
+        //_currentSpeed = _startSpeed;
+        _goingBackwards = false;
+        _goingForward = true;
+
+        /*
+        rb.AddForce(Vector2.right * _playerSpeed, ForceMode.Force);
+        if (Vector2.right == null)
+        {
+            Debug.Log("null Vector");
+            //rb.AddForce(Vector2.right * _playerSpeed, ForceMode.Force);
+        }
+        Debug.Log("Grounded: " + isGrounded);
+        
+
+        _playerSpeed = 25f;
+        */
+    }
+
+    public void ButtonRelease()
+    {
+        //Debug.Log("Released");
+        _goingForward = false;
+        _goingBackwards = false;
+        _currentVelocity -= _acceleration * Time.deltaTime;
+    }
+
+    public void Reverse()
+    {
+        //Debug.Log("Reverse");
+        //_currentSpeed = _startSpeed;
+        _goingForward = false;
+        _goingBackwards = true;
+        /*
+        rb.AddForce(Vector2.left * _playerSpeed, ForceMode.Force);
+        if (isGrounded)
+        {
+            Debug.Log("Reverse");
+            //rb.AddForce(Vector2.left * _playerSpeed, ForceMode.Force);
+        }
+        Debug.Log("Grounded: " + isGrounded);
+        
+
+        _playerSpeed = -25f;
         */
     }
 
@@ -75,8 +147,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _moveDirection = _move.ReadValue<Vector2>();
-        Debug.Log(_moveDirection);
-        if (!_move.enabled) Debug.Log("Null action list");
+        rb.AddForce(Vector2.left * _currentVelocity, ForceMode.Force);
+
     }
 }

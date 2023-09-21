@@ -5,20 +5,22 @@ using UnityEngine.Rendering;
 
 public class SuspensionSystem : MonoBehaviour
 {
+    private PlayerMovement _playerMovement;
     public GameObject wheel;
-    private GameObject[] _wheelPrefabs = new GameObject[4];
+    public GameObject[] _wheelPrefabs = new GameObject[4];
     private Vector3 orginDiff = new Vector3(2.6f, 0, 0);
 
     public Vector3[] _wheels = new Vector3[4];
 
-    //0.039499971, 1.34f
     public Vector2 _wheelDist = new Vector2(2, 2);
     private float[] oldDist = new float[4];
 
-    float maxSuspLength = 3f;
-    float suspensionMultiplier = 100f;
+    float maxSuspLength = 2.8f;
+    float suspensionMultiplier = 300f;
     float dampSens = 500f;
     float maxDamp = 40f;
+
+    //public bool isGrounded;
 
     Rigidbody rb;
 
@@ -28,7 +30,11 @@ public class SuspensionSystem : MonoBehaviour
         {
             oldDist[i] = maxSuspLength;
             _wheelPrefabs[i] = Instantiate(wheel, _wheels[i], Quaternion.identity);
+            //_wheelPrefabs[i].AddComponent<Wheel>();
         }
+
+        _playerMovement = this.gameObject.GetComponent<PlayerMovement>();
+
     }
     void Start()
     {
@@ -53,12 +59,17 @@ public class SuspensionSystem : MonoBehaviour
 
                 _wheelPrefabs[i].transform.position = hit.point + transform.up * 0.5f;
                 _wheelPrefabs[i].transform.rotation = transform.rotation;
+                //isGrounded = true;
+                
             }
             else
             {
                 _wheelPrefabs[i].transform.position = transform.position - orginDiff + _wheels[i] - transform.up * (maxSuspLength - 0.5f);
                 _wheelPrefabs[i].transform.rotation = transform.rotation;
+                //isGrounded = false;
             }
+
+            //Debug.Log("Grounded: " + isGrounded);
 
             oldDist[i] = hit.distance;
         }

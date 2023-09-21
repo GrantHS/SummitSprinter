@@ -53,6 +53,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""New Move"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""f74e1526-b89e-4a5b-8f7e-de168134901a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -143,6 +152,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""X Axis"",
+                    ""id"": ""9d736915-3022-4c41-86d9-a0a470a54a75"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""Negative"",
+                    ""id"": ""65d3a3a2-f2a7-4058-a1b4-4666adee0438"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Positive"",
+                    ""id"": ""67c8a4b3-f6ef-4258-8786-2ffb57c01512"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""New Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -154,6 +196,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_PlayerMovement_Throttle = m_PlayerMovement.FindAction("Throttle", throwIfNotFound: true);
         m_PlayerMovement_Reverse = m_PlayerMovement.FindAction("Reverse", throwIfNotFound: true);
         m_PlayerMovement_Move = m_PlayerMovement.FindAction("Move", throwIfNotFound: true);
+        m_PlayerMovement_NewMove = m_PlayerMovement.FindAction("New Move", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -218,6 +261,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerMovement_Throttle;
     private readonly InputAction m_PlayerMovement_Reverse;
     private readonly InputAction m_PlayerMovement_Move;
+    private readonly InputAction m_PlayerMovement_NewMove;
     public struct PlayerMovementActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -225,6 +269,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Throttle => m_Wrapper.m_PlayerMovement_Throttle;
         public InputAction @Reverse => m_Wrapper.m_PlayerMovement_Reverse;
         public InputAction @Move => m_Wrapper.m_PlayerMovement_Move;
+        public InputAction @NewMove => m_Wrapper.m_PlayerMovement_NewMove;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -243,6 +288,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @NewMove.started += instance.OnNewMove;
+            @NewMove.performed += instance.OnNewMove;
+            @NewMove.canceled += instance.OnNewMove;
         }
 
         private void UnregisterCallbacks(IPlayerMovementActions instance)
@@ -256,6 +304,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @NewMove.started -= instance.OnNewMove;
+            @NewMove.performed -= instance.OnNewMove;
+            @NewMove.canceled -= instance.OnNewMove;
         }
 
         public void RemoveCallbacks(IPlayerMovementActions instance)
@@ -278,5 +329,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnThrottle(InputAction.CallbackContext context);
         void OnReverse(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnNewMove(InputAction.CallbackContext context);
     }
 }
