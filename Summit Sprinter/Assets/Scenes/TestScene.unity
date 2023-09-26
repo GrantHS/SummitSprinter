@@ -9820,6 +9820,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 846207865767197075, guid: e14facba8f5103547ad23515a6c0e835,
+        type: 3}
+      propertyPath: maxDamp
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 846207865767197075, guid: e14facba8f5103547ad23515a6c0e835,
+        type: 3}
+      propertyPath: dampSens
+      value: 450
+      objectReference: {fileID: 0}
+    - target: {fileID: 846207865767197075, guid: e14facba8f5103547ad23515a6c0e835,
+        type: 3}
+      propertyPath: maxSuspLength
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 846207865767197075, guid: e14facba8f5103547ad23515a6c0e835,
+        type: 3}
+      propertyPath: suspensionMultiplier
+      value: 550
+      objectReference: {fileID: 0}
     - target: {fileID: 1688159708691785949, guid: e14facba8f5103547ad23515a6c0e835,
         type: 3}
       propertyPath: m_LocalPosition.x
