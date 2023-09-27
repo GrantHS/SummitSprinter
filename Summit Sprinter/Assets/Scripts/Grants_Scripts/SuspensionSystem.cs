@@ -15,10 +15,10 @@ public class SuspensionSystem : MonoBehaviour
     public Vector2 _wheelDist = new Vector2(2, 2);
     private float[] oldDist = new float[4];
 
-    float maxSuspLength = 2.8f;
-    float suspensionMultiplier = 300f;
-    float dampSens = 500f;
-    float maxDamp = 40f;
+    public float maxSuspLength = 2.8f;
+    public float suspensionMultiplier = 300f;
+    public float dampSens = 500f;
+    public float maxDamp = 40f;
 
     //public bool isGrounded;
 
@@ -48,14 +48,21 @@ public class SuspensionSystem : MonoBehaviour
         _wheels[1] = transform.right * -_wheelDist.x + transform.forward * _wheelDist.y; //front left
         _wheels[2] = transform.right * _wheelDist.x + transform.forward * -_wheelDist.y; //back right
         _wheels[3] = transform.right * -_wheelDist.x + transform.forward * -_wheelDist.y; //back left
+        
+
 
         for (int i = 0; i < 4; i++)
         {
+            Debug.Log(transform.position - orginDiff + _wheels[i]);
             RaycastHit hit;
             Physics.Raycast(transform.position - orginDiff + _wheels[i], -transform.up, out hit, maxSuspLength);
+            Debug.DrawRay(transform.position - orginDiff + _wheels[i], -transform.up, Color.red);
+            
             if (hit.collider != null)
             {
-                rb.AddForceAtPosition((Mathf.Clamp(maxSuspLength - hit.distance, 0, 3) * suspensionMultiplier * transform.up + transform.up * Mathf.Clamp((oldDist[i] - hit.distance) * dampSens, 0, maxDamp)) * Time.deltaTime, transform.position + _wheels[i]);
+                
+                
+                rb.AddForceAtPosition((Mathf.Clamp(maxSuspLength - hit.distance, 0f, 1f) * suspensionMultiplier * transform.up + transform.up * Mathf.Clamp((oldDist[i] - hit.distance) * dampSens, 0, maxDamp)) * Time.deltaTime, transform.position + _wheels[i]);
 
                 _wheelPrefabs[i].transform.position = hit.point + transform.up * 0.5f;
                 _wheelPrefabs[i].transform.rotation = transform.rotation;
@@ -64,6 +71,7 @@ public class SuspensionSystem : MonoBehaviour
             }
             else
             {
+                //Debug.Log("null collider");
                 _wheelPrefabs[i].transform.position = transform.position - orginDiff + _wheels[i] - transform.up * (maxSuspLength - 0.5f);
                 _wheelPrefabs[i].transform.rotation = transform.rotation;
                 //isGrounded = false;
