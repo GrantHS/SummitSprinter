@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 public class SuspensionSystem : MonoBehaviour
 {
-    private PlayerMovement _playerMovement;
     public GameObject wheel;
     public GameObject[] _wheelPrefabs = new GameObject[4];
     private Vector3 orginDiff = new Vector3(2.6f, 0, 0);
@@ -24,7 +25,7 @@ public class SuspensionSystem : MonoBehaviour
 
     Rigidbody rb;
 
-    private void Awake()
+    private void OnEnable()
     {
         for (int i = 0; i < 4; i++)
         {
@@ -33,9 +34,13 @@ public class SuspensionSystem : MonoBehaviour
             //_wheelPrefabs[i].AddComponent<Wheel>();
         }
 
-        _playerMovement = this.gameObject.GetComponent<PlayerMovement>();
-
     }
+
+    private void OnDisable()
+    {
+        ArrayUtility.Clear(ref _wheelPrefabs);
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -53,7 +58,7 @@ public class SuspensionSystem : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            Debug.Log(transform.position - orginDiff + _wheels[i]);
+            //Debug.Log(transform.position - orginDiff + _wheels[i]);
             RaycastHit hit;
             Physics.Raycast(transform.position - orginDiff + _wheels[i], -transform.up, out hit, maxSuspLength);
             Debug.DrawRay(transform.position - orginDiff + _wheels[i], -transform.up, Color.red);

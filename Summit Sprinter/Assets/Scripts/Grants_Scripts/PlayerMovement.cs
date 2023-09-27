@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float _currentVelocity = 0f;
+    //public PlayerDataSO playerData;
+    public float _currentVelocity = 0f;
     private float _topSpeed =10f;
     private float _torque = 5f;
     private float _acceleration = 3f;
@@ -25,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerInputActions();
-
+        
     }
 
     private void OnEnable()

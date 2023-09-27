@@ -9,6 +9,7 @@ public class PlayerDataSO : ScriptableObject
     public int totalValue;
 
     public float playerHealth;
+    public float playerSpeed;
     public int playerScore;
     public int highScore;
 
