@@ -38,7 +38,7 @@ public class SuspensionSystem : MonoBehaviour
 
     private void OnDisable()
     {
-        ArrayUtility.Clear(ref _wheelPrefabs);
+        //ArrayUtility.Clear(ref _wheelPrefabs);
     }
 
     void Start()
