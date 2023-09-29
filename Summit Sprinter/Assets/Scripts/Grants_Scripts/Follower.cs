@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Follower : MonoBehaviour
 {
-    public GameObject target;
+    private GameObject target;
 
     [SerializeField]
     [Tooltip("How far on the Z-axis this object will follow.")]
@@ -20,6 +20,10 @@ public class Follower : MonoBehaviour
     private Vector3 _trackDirection;
     private Vector3 _currentLocation;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        target = FindObjectOfType<PlayerMovement>().gameObject;
+    }
     void Start()
     {
         _targetLocation = target.transform.position;
