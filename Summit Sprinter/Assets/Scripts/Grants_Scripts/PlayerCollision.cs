@@ -33,7 +33,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if(transform.position.y <= minYpos)
         {
-            StartCoroutine(GameManager.Instance.Respawn(_playerMovement, respawnTime, spawnPos));
+            StartCoroutine(GameManager.Instance.Respawn(_playerMovement, respawnTime, spawnPos, spawnRot));
         }
     }
 
@@ -86,7 +86,7 @@ public class PlayerCollision : MonoBehaviour
 
         if(playerDataSO.playerHealth <= 0)
         {
-            StartCoroutine(GameManager.Instance.Respawn(_playerMovement, respawnTime, spawnPos));
+            StartCoroutine(GameManager.Instance.Respawn(_playerMovement, respawnTime, spawnPos, spawnRot));
         }
     }
 

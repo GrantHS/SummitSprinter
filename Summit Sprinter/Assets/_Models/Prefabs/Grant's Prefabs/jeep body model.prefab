@@ -26,17 +26,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e772cc9fa4aba5b429b9c40d89b17cd2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.492775
+      value: 88.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e772cc9fa4aba5b429b9c40d89b17cd2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.47
+      value: 5.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e772cc9fa4aba5b429b9c40d89b17cd2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.1060001
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e772cc9fa4aba5b429b9c40d89b17cd2,
         type: 3}
@@ -102,10 +102,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e772cc9fa4aba5b429b9c40d89b17cd2,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6555736839351490560}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e772cc9fa4aba5b429b9c40d89b17cd2,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7339156107421423925}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e772cc9fa4aba5b429b9c40d89b17cd2,
         type: 3}
@@ -118,7 +114,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e772cc9fa4aba5b429b9c40d89b17cd2,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9067112261571608681}
+      addedObject: {fileID: 2772859479263638577}
   m_SourcePrefab: {fileID: 100100000, guid: e772cc9fa4aba5b429b9c40d89b17cd2, type: 3}
 --- !u!4 &1688159708691785949 stripped
 Transform:
@@ -141,7 +137,7 @@ Rigidbody:
   m_GameObject: {fileID: 2028410812372300391}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: -1.03, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -180,27 +176,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.060830075, y: 0.015778832, z: 0.009999999}
   m_Center: {x: -0.025415039, y: 0.007886169, z: 0}
---- !u!65 &6555736839351490560
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2028410812372300391}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.0023480034, y: 0.02170109, z: 0.009999999}
-  m_Center: {x: -0.057036884, y: 0.0049250424, z: 0}
 --- !u!65 &7339156107421423925
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -246,7 +221,10 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   _wheelDist: {x: 2, y: 0.7}
-  isGrounded: 0
+  maxSuspLength: 2.5
+  suspensionMultiplier: 550
+  dampSens: 450
+  maxDamp: 20
 --- !u!114 &9120963018601364338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -259,8 +237,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dc483f92f7812d4f86d482bb39a2a59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentVelocity: 0
   isGrounded: 1
---- !u!114 &9067112261571608681
+--- !u!114 &2772859479263638577
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -269,27 +248,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2028410812372300391}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Script: {fileID: 11500000, guid: e581952f6edb8844589b3680c3b258e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: 0}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: 
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  playerDataSO: {fileID: 11400000, guid: 7305436ddfeab084990e4b541e7b242c, type: 2}
 --- !u!1001 &4820039248743492146
 PrefabInstance:
   m_ObjectHideFlags: 0
