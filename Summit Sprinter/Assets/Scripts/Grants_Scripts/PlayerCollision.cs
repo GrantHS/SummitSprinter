@@ -7,10 +7,11 @@ public class PlayerCollision : MonoBehaviour
     public PlayerDataSO playerDataSO;
     private PlayerMovement _playerMovement;
     private BadGuy _badGuy;
-    private Vector3 spawnPos;
-    private Quaternion spawnRot;
+    private GameObject _roof;
+    public Vector3 spawnPos;
+    public Quaternion spawnRot;
     private float minYpos = -20;
-    private float respawnTime = 3f;
+    public float respawnTime = 3f;
 
     private void Awake()
     {
@@ -20,6 +21,9 @@ public class PlayerCollision : MonoBehaviour
         }
         
         _playerMovement = GetComponent<PlayerMovement>();
+
+        _roof = FindChildWithTag(this.gameObject, "Cargo");
+   
     }
 
     private void Start()
@@ -32,7 +36,7 @@ public class PlayerCollision : MonoBehaviour
     {
         if(transform.position.y <= minYpos)
         {
-            StartCoroutine(GameManager.Instance.Respawn(_playerMovement, respawnTime, spawnPos, spawnRot));
+            StartCoroutine(GameManager.Instance.Respawn(this.gameObject, respawnTime, spawnPos, spawnRot));
         }
     }
 
@@ -78,29 +82,45 @@ public class PlayerCollision : MonoBehaviour
 
 
     }
-    
+
     private void TakeDamage(BadGuy badGuy)
     {
         playerDataSO.playerHealth -= badGuy._damage;
 
         if(playerDataSO.playerHealth <= 0)
         {
-            StartCoroutine(GameManager.Instance.Respawn(_playerMovement, respawnTime, spawnPos, spawnRot));
+            StartCoroutine(GameManager.Instance.Respawn(this.gameObject, respawnTime, spawnPos, spawnRot));
         }
     }
 
-    /*
-    private IEnumerator Respawn(float respawnTime)
+    GameObject FindChildWithTag(GameObject parent, string tag)
     {
-        //this.gameObject.GetComponent<Renderer>().enabled = false;
-        gameObject.SetActive(false);
-        transform.position = spawnPos;
-        transform.rotation = spawnRot;
-        _playerMovement._currentVelocity = 0;
-        yield return new WaitForSeconds(respawnTime);
-        gameObject.SetActive(true);
-        //this.gameObject.GetComponent<Renderer>().enabled = true;
+        GameObject child = null;
 
+        foreach (Transform transform in parent.transform)
+        {
+            if (transform.CompareTag(tag))
+            {
+                child = transform.gameObject;
+                break;
+            }
+        }
+
+        return child;
     }
-    */
+
+        /*
+        private IEnumerator Respawn(float respawnTime)
+        {
+            //this.gameObject.GetComponent<Renderer>().enabled = false;
+            gameObject.SetActive(false);
+            transform.position = spawnPos;
+            transform.rotation = spawnRot;
+            _playerMovement._currentVelocity = 0;
+            yield return new WaitForSeconds(respawnTime);
+            gameObject.SetActive(true);
+            //this.gameObject.GetComponent<Renderer>().enabled = true;
+
+        }
+        */
 }

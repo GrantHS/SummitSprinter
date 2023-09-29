@@ -13,16 +13,16 @@ public class GameManager : Singleton<GameManager>
     {
         get; private set;
     }
-    public IEnumerator Respawn(PlayerMovement player, float respawnTime, Vector3 spawnPos, Quaternion spawnRot)
+    public IEnumerator Respawn(GameObject player, float respawnTime, Vector3 spawnPos, Quaternion spawnRot)
     {
         isDead = true;
 
-        Rigidbody rb = player.gameObject.GetComponent<Rigidbody>();
-        MeshRenderer mr = player.gameObject.GetComponent<MeshRenderer>();
+        Rigidbody rb = player.GetComponent<Rigidbody>();
+        MeshRenderer mr = player.GetComponent<MeshRenderer>();
         float blinkTime = respawnTime/5;
 
   
-        playerMovement = player.gameObject.GetComponent<PlayerMovement>();
+        playerMovement = player.GetComponent<PlayerMovement>();
         //this.gameObject.GetComponent<Renderer>().enabled = false;
         mr.enabled = false;
 
@@ -32,8 +32,8 @@ public class GameManager : Singleton<GameManager>
         rb.ResetInertiaTensor();
         playerMovement._currentVelocity = 0;
 
-        player.gameObject.transform.position = spawnPos;
-        player.gameObject.transform.rotation = spawnRot;
+        player.transform.position = spawnPos;
+        player.transform.rotation = spawnRot;
         
         yield return new WaitForSeconds(blinkTime);
         mr.enabled = true;

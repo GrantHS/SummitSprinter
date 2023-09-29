@@ -9,6 +9,7 @@ TagManager:
   - Coin
   - Gas
   - End
+  - Cargo
   layers:
   - Default
   - TransparentFX
