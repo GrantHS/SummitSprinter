@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float _currentVelocity = 0f;
+    //public PlayerDataSO playerData;
+    public float _currentVelocity = 0f;
     private float _topSpeed =10f;
     private float _torque = 5f;
     private float _acceleration = 3f;
@@ -25,13 +26,13 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerInputActions();
-
+        
     }
 
     private void OnEnable()
     {
-        _move = playerControls.PlayerMovement.NewMove;
-        _move.Enable();
+       // _move = playerControls.PlayerMovement.NewMove;
+        //_move.Enable();
         rb = this.GetComponent<Rigidbody>();
 
         //_reverse = playerControls.PlayerMovement.Reverse;
@@ -39,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDisable()
     {
-        _move.Disable();
+       // _move.Disable();
         //_reverse.Disable(); 
     }
     // Start is called before the first frame update
@@ -50,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        _moveDirection = _move.ReadValue<Vector2>();
+       // _moveDirection = _move.ReadValue<Vector2>();
     }
 
     private void FixedUpdate()
