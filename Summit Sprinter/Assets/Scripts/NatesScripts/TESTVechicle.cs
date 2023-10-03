@@ -4,52 +4,121 @@ using UnityEngine;
 
 public class TESTVechicle : MonoBehaviour
 {
-    public float speed = 5.0f; // Forward movement speed.
-    public float maxSpeed = 10.0f; // Maximum speed.
-    public float acceleration = 10.0f; // Acceleration rate.
-    public float brakeForce = 20.0f; // Braking force.
-    public float suspensionForce = 5.0f; // Suspension force.
-    public float suspensionRange = 0.2f; // Suspension range.
+    public Rigidbody carRigidbody;
+    public Transform tireTransform;
+    private bool rayDidHit;
 
-    private Rigidbody rb;
-    private bool isGrounded = false;
+    private Vector3 springDir;
+    public float suspensionRestDist;
+    public float suspensionTravel;
+    public float springStrength;
+    public float springDamper;
 
-    private void Start()
+    private RaycastHit tireRay;
+
+
+    private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        suspensionRestDist = 1f;
+        suspensionTravel = 25f;
+        springStrength = 100f;
+        springDamper = 30f;
     }
-
     private void Update()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, suspensionRange);
 
-        if (isGrounded)
+    RaycastHit hit;
+    Vector3 rayOrigin = tireTransform.position;
+    Vector3 rayDirection = -tireTransform.up; // Assuming the tires are facing downward
+        if (Physics.Raycast(rayOrigin, rayDirection, out hit, suspensionRestDist))
         {
-            // Apply suspension force to keep the vehicle grounded.
-            rb.AddForce(Vector3.up * suspensionForce);
+            // Handle the raycast hit here
+            Debug.DrawLine(rayOrigin, hit.point, Color.green);
+            rayDidHit = true;// Draw a green line for visualization
+        }
+        else
+        {
+            // Handle the case when the raycast doesn't hit anything
+            Debug.DrawRay(rayOrigin, rayDirection * suspensionRestDist, Color.red);
+            rayDidHit = false;// Draw a red line for visualization
+        }
+        if (rayDidHit)
+        {
+            //world space velocity of this tire
+            Vector3 tireWorldVel = carRigidbody.GetPointVelocity(tireTransform.position);
+
+            //calculate offset from the raycast
+            float offset = suspensionRestDist - tireRay.distance;
+
+           
+            //calculate velocity along the spring direction
+            //note that springDir is a unit vector, so this returns the magnitude of tireWorldVel
+            //as projected onto springDir
+            float vel = Vector3.Dot(springDir, tireWorldVel);
+
+            //calculate the magnitude of the damped spring force!
+            float force = (offset * springStrength) - (vel * springDamper);
+
+            //apply the force at the location of this tire, in the direction
+            // of the suspension
+            carRigidbody.AddForceAtPosition(springDir * force, tireTransform.position);
+
+
+
         }
 
-        // Input handling for acceleration and braking.
-        float moveInput = Input.GetAxis("Vertical");
-        float brakeInput = Input.GetKey(KeyCode.Space) ? 1.0f : 0.0f;
-
-        // Calculate the current speed in the forward direction.
-        float currentSpeed = Vector3.Dot(rb.velocity, transform.forward);
-
-        // Apply acceleration or braking.
-        float targetSpeed = moveInput * maxSpeed;
-        float accelerationForce = (targetSpeed - currentSpeed) * acceleration;
-
-        // Apply braking force.
-        if (brakeInput > 0.0f)
-        {
-            rb.AddForce(-transform.forward * brakeForce * brakeInput);
-        }
-
-        // Apply acceleration force.
-        rb.AddForce(transform.forward * accelerationForce);
-
-        // Limit the maximum speed.
-        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
     }
+
+
+  
+    /*
+    private void Suspension()
+    {
+        if (rayDidHit)
+        {
+            //world space velocity of this tire
+            Vector3 tireWorldVel = carRigidbody.GetPointVelocity(tireTransform.position);
+
+            //calculate offset from the raycast
+            float offset = suspensionRestDist - tireRay.distance;
+
+            CalculateRaycastOffset(tireTransform, suspensionRestDist);
+
+            //calculate velocity along the spring direction
+            //note that springDir is a unit vector, so this returns the magnitude of tireWorldVel
+            //as projected onto springDir
+            float vel = Vector3.Dot(springDir, tireWorldVel);
+
+            //calculate the magnitude of the damped spring force!
+            float force = (offset * springStrength) - (vel * springDamper);
+
+            //apply the force at the location of this tire, in the direction
+            // of the suspension
+            carRigidbody.AddForceAtPosition(springDir * force, tireTransform.position);
+
+
+
+        }
+    }
+
+
+    float CalculateRaycastOffset(Transform originTransform, float suspensionRestDist)
+    {
+        RaycastHit hit;
+        Vector3 rayOrigin = originTransform.position;
+        Vector3 rayDirection = -originTransform.up; // Assuming the object is oriented downward
+        float rayLength = suspensionRestDist + suspensionTravel; // Adjust as needed
+
+        if (Physics.Raycast(rayOrigin, rayDirection, out hit, rayLength))
+        {
+            // Calculate the offset as the difference between the suspension rest distance
+            // and the distance to the hit point
+            float offset = suspensionRestDist - hit.distance;
+            return offset;
+        }
+
+        // If the raycast didn't hit anything, return a default offset (e.g., suspensionRestDist).
+        return suspensionRestDist;
+    }
+    */
 }
