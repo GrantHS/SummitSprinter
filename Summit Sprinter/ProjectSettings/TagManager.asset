@@ -10,6 +10,7 @@ TagManager:
   - Gas
   - End
   - Cargo
+  - Skrap
   layers:
   - Default
   - TransparentFX
