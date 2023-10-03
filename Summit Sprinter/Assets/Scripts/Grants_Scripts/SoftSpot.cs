@@ -16,7 +16,7 @@ public class SoftSpot : MonoBehaviour
 
         if (other.gameObject.CompareTag("Ground"))
         {
-            GameManager.Instance.Respawn(GetComponentInParent<GameObject>(), playerCollision.respawnTime, playerCollision.spawnPos, playerCollision.spawnRot);
+            GameManager.Instance.InvokeDeath(gameObject.GetComponentInParent<PlayerMovement>().gameObject, playerCollision.respawnTime, playerCollision.spawnPos, playerCollision.spawnRot);
 
             if(GetComponentInParent<PlayerMovement>() != null)
             {

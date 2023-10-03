@@ -13,7 +13,13 @@ public class GameManager : Singleton<GameManager>
     {
         get; private set;
     }
-    public IEnumerator Respawn(GameObject player, float respawnTime, Vector3 spawnPos, Quaternion spawnRot)
+
+    public void InvokeDeath(GameObject player, float respawnTime, Vector3 spawnPos, Quaternion spawnRot)
+    {
+        StartCoroutine(Respawn(player, respawnTime, spawnPos, spawnRot));
+    }
+
+    private IEnumerator Respawn(GameObject player, float respawnTime, Vector3 spawnPos, Quaternion spawnRot)
     {
         isDead = true;
 

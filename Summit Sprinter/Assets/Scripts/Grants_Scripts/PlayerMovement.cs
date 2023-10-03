@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     //public PlayerDataSO playerData;
     public float _currentVelocity = 0f;
     private float _topSpeed =10f;
-    private float _torque = 5f;
+    private float _torque = 15f;
     private float _acceleration = 3f;
     //private float _wheelSpeed = 40f;
     //private float _rotateSpeed = 10f;
@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _moveDirection;
 
     public PlayerInputActions playerControls;
+    private SuspensionSystem _suspensionSystem;
     private Rigidbody rb;
 
     public bool isGrounded = true;
@@ -26,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerInputActions();
-        
+        _suspensionSystem = GetComponent<SuspensionSystem>();
     }
 
     private void OnEnable()
@@ -59,25 +60,30 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("Current Speed: " + _currentVelocity);
         if (_goingForward)
         {
-            
-            rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
-            rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
-
-            if(_currentVelocity < _topSpeed)
+            if(_suspensionSystem.groundedWheels > 0)
             {
-                _currentVelocity += _acceleration * Time.deltaTime;
+                rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);               
+
+                if (_currentVelocity < _topSpeed)
+                {
+                    _currentVelocity += _acceleration * Time.deltaTime;
+                }
             }
-            
+            rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
         }
         else if(_goingBackwards)
         {
-            rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
+            if (_suspensionSystem.groundedWheels > 0)
+            {
+                rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
+
+                if (_currentVelocity < _topSpeed)
+                {
+                    _currentVelocity -= _acceleration * Time.deltaTime;
+                }
+            }
             rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
 
-            if (_currentVelocity < _topSpeed)
-            {
-                _currentVelocity -= _acceleration * Time.deltaTime;
-            }
         }
         else
         {

@@ -21,7 +21,12 @@ public class SuspensionSystem : MonoBehaviour
     public float dampSens = 500f;
     public float maxDamp = 40f;
 
-    //public bool isGrounded;
+    public bool isGrounded;
+    public int groundedWheels
+    {
+        get;
+        private set;
+    }
 
     Rigidbody rb;
 
@@ -53,11 +58,12 @@ public class SuspensionSystem : MonoBehaviour
         _wheels[1] = transform.right * -_wheelDist.x + transform.forward * _wheelDist.y; //front left
         _wheels[2] = transform.right * _wheelDist.x + transform.forward * -_wheelDist.y; //back right
         _wheels[3] = transform.right * -_wheelDist.x + transform.forward * -_wheelDist.y; //back left
-        
 
 
+        groundedWheels = 0;
         for (int i = 0; i < 4; i++)
         {
+            
             //Debug.Log(transform.position - orginDiff + _wheels[i]);
             RaycastHit hit;
             Physics.Raycast(transform.position - orginDiff + _wheels[i], -transform.up, out hit, maxSuspLength);
@@ -71,7 +77,7 @@ public class SuspensionSystem : MonoBehaviour
 
                 _wheelPrefabs[i].transform.position = hit.point + transform.up * 0.5f;
                 _wheelPrefabs[i].transform.rotation = transform.rotation;
-                //isGrounded = true;
+                groundedWheels++;
                 
             }
             else
@@ -86,6 +92,8 @@ public class SuspensionSystem : MonoBehaviour
 
             oldDist[i] = hit.distance;
         }
+
+        //Debug.Log("Grounded Wheels: " + groundedWheels);
     }
 
 
