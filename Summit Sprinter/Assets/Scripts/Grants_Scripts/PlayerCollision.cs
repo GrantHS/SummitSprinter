@@ -52,6 +52,7 @@ public class PlayerCollision : MonoBehaviour
         if (other.gameObject.CompareTag("Gas"))
         {
             other.gameObject.SetActive(false);
+            _playerMovement.gasMeter.FillTank();
             //Debug.Log("Your tank is now full");
         }
 
