@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public GasMeter gasMeter;
+    private float _powerDrain = 3f;
     //public PlayerDataSO playerData;
     public float _currentVelocity = 0f;
     private float _topSpeed =10f;
@@ -58,45 +60,62 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //Debug.Log("Current Speed: " + _currentVelocity);
-        if (_goingForward)
+        if(gasMeter.currentValue > 0)
         {
-            if(_suspensionSystem.groundedWheels > 0)
+            if (_goingForward)
             {
-                rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);               
+                if (_suspensionSystem.groundedWheels > 0)
+                {
+                    rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
+                    gasMeter.currentValue -= _powerDrain * Time.deltaTime;
 
-                if (_currentVelocity < _topSpeed)
+                    if (_currentVelocity < _topSpeed)
+                    {
+                        _currentVelocity += _acceleration * Time.deltaTime;
+                    }
+                }
+                rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
+            }
+            else if (_goingBackwards)
+            {
+                if (_suspensionSystem.groundedWheels > 0)
+                {
+                    rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
+                    gasMeter.currentValue -= _powerDrain * Time.deltaTime;
+
+                    if (_currentVelocity < _topSpeed)
+                    {
+                        _currentVelocity -= _acceleration * Time.deltaTime;
+                    }
+                }
+                rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
+
+            }
+            else
+            {
+                if (_currentVelocity > 0)
+                {
+                    _currentVelocity -= _acceleration * Time.deltaTime;
+                }
+                else if (_currentVelocity < 0)
                 {
                     _currentVelocity += _acceleration * Time.deltaTime;
                 }
             }
-            rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
-        }
-        else if(_goingBackwards)
-        {
-            if (_suspensionSystem.groundedWheels > 0)
-            {
-                rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
-
-                if (_currentVelocity < _topSpeed)
-                {
-                    _currentVelocity -= _acceleration * Time.deltaTime;
-                }
-            }
-            rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
-
         }
         else
         {
-            if(_currentVelocity > 0 )
+            Debug.Log("Out of gas");
+            if (_currentVelocity > 0)
             {
                 _currentVelocity -= _acceleration * Time.deltaTime;
             }
-            else if( _currentVelocity < 0 )
+            else if (_currentVelocity < 0)
             {
                 _currentVelocity += _acceleration * Time.deltaTime;
             }
         }
-        
+
 
     }
 
