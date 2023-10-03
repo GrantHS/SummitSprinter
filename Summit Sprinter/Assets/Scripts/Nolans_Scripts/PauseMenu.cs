@@ -10,37 +10,35 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenuCanvas;
     //public GameObject endMenuCanvas;
 
-    void Start()
+   
+
+    private void Awake()
     {
-        pauseMenuCanvas.SetActive(false);
+
         TouchSimulation.Enable();
     }
 
 
     void Update()
     {
-       /*
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (isPaused)
         {
-            if (isPaused)
-            {
-                Resume();
-            }
-            else
-            {
-                Pause();
-            }
+            pauseMenuCanvas.SetActive(true);
         }
-       */
+        else
+        {
+            pauseMenuCanvas.SetActive(false);
+        }
     }
 
     public void Pause()
-    {
-       Debug.Log("paused"); 
-       Time.timeScale = 0f;
-       pauseMenuCanvas.SetActive(true);
-       isPaused = true;
-        
+    {   
+        isPaused = true;
+        Debug.Log("paused");
+        Time.timeScale = 0f;
+        pauseMenuCanvas.SetActive(true);
+       
+
     }
 
     public void Resume()
