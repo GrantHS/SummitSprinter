@@ -9,9 +9,18 @@ public class GameManager : Singleton<GameManager>
     public PlayerMovement playerMovement;
     public GameObject playerPrefab;
 
+    private float idleDrain = 0.5f;
+
     public bool isDead
     {
         get; private set;
+    }
+
+    public float gasLevel;
+
+    private void Update()
+    {
+        //gasLevel -= idleDrain * Time.deltaTime;
     }
 
     public void InvokeDeath(GameObject player, float respawnTime, Vector3 spawnPos, Quaternion spawnRot)

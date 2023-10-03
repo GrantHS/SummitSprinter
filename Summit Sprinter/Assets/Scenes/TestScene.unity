@@ -421,6 +421,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &84888640 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1000418921808062120, guid: 2ef21042d5a473841bdb0ba7a17c3d96,
+    type: 3}
+  m_PrefabInstance: {fileID: 1910436794}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e4ced4c52b5ea74abd426352571cad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &89124562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9685,6 +9697,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9120963018601364338, guid: e14facba8f5103547ad23515a6c0e835,
+        type: 3}
+      propertyPath: gasMeter
+      value: 
+      objectReference: {fileID: 84888640}
     m_RemovedComponents:
     - {fileID: 7207459941464509778, guid: e14facba8f5103547ad23515a6c0e835, type: 3}
     m_RemovedGameObjects: []
@@ -11145,6 +11162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovement: {fileID: 0}
   playerPrefab: {fileID: 0}
+  gasLevel: 0
 --- !u!4 &1692862690
 Transform:
   m_ObjectHideFlags: 0
@@ -12570,7 +12588,7 @@ PrefabInstance:
     - target: {fileID: 8541099777193714071, guid: 2ef21042d5a473841bdb0ba7a17c3d96,
         type: 3}
       propertyPath: m_Value
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8541099777193714071, guid: 2ef21042d5a473841bdb0ba7a17c3d96,
         type: 3}
