@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
@@ -10,7 +11,7 @@ public class PlayerCollision : MonoBehaviour
     private GameObject _roof;
     public Vector3 spawnPos;
     public Quaternion spawnRot;
-    private float minYpos = -20;
+    private float minYpos = -50;
     public float respawnTime = 3f;
 
     private void Awake()
@@ -46,7 +47,7 @@ public class PlayerCollision : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             playerDataSO.numCoins++;
-           // Debug.Log("You have " + numCoins + " coins");
+            //Debug.Log("You have " + numCoins + " coins");
         }
 
         if (other.gameObject.CompareTag("Gas"))
@@ -62,7 +63,14 @@ public class PlayerCollision : MonoBehaviour
             //Debug.Log("You win!");
         }
 
-        if (other.GetComponent<BadGuy>())
+        if (other.gameObject.CompareTag("Skrap"))
+        {
+            other.gameObject.SetActive(false);
+            playerDataSO.numSkrap++;
+            //Debug.Log("You have " + numSkrap + " skrap");
+        }
+
+        if (other.GetComponent<EnemyMovement>())
         {
             _badGuy = other.GetComponent<BadGuy>();
             switch (_badGuy.enemyType)
@@ -84,13 +92,29 @@ public class PlayerCollision : MonoBehaviour
 
     }
 
-    private void TakeDamage(BadGuy badGuy)
+    public void TakeDamage(BadGuy badGuy)
     {
-        playerDataSO.playerHealth -= badGuy._damage;
-
+        _playerMovement.gasMeter.currentValue -= badGuy.damage;
+        /*
         if(playerDataSO.playerHealth <= 0)
         {
             GameManager.Instance.InvokeDeath(this.gameObject, respawnTime, spawnPos, spawnRot);
+        }
+        */
+
+        switch (badGuy.enemyType)
+        {
+            case Enemies.Spikey:
+                //badGuy.GetComponent<BoxCollider>().isTrigger = true;
+                break;
+            case Enemies.Wheelie:
+                
+                break;
+            case Enemies.Rocketee:
+                
+                break;
+            default:
+                break;
         }
     }
 
