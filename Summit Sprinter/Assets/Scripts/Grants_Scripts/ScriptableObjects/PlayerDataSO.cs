@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlayerDataScriptableObject", menuName = "ScriptableObjects/PlayerData")]
+[CreateAssetMenu(fileName = "PlayerDataScriptableObject", menuName = "Scriptable Objects/PlayerData")]
 public class PlayerDataSO : ScriptableObject
 {
     public int numCoins;
+    public int numSkrap;
     public int totalValue;
 
     public float playerHealth;

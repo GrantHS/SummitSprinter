@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public GasMeter gasMeter;
-    private float _powerDrain = 3f;
+    private float _powerDrain = 2f;
     //public PlayerDataSO playerData;
     public float _currentVelocity = 0f;
     private float _topSpeed =10f;
