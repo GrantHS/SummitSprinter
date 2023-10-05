@@ -37,7 +37,7 @@ public class Ak_Script : MonoBehaviour
 
         if (rb != null)
         {
-            rb.velocity = GunBarrel.forward * BulletSpeed;
+            rb.velocity = -GunBarrel.forward * BulletSpeed;
         }
         bullet.GetComponent<Renderer>().material.color = Color.red; 
         yield return new WaitForSeconds(RateOfFire);
