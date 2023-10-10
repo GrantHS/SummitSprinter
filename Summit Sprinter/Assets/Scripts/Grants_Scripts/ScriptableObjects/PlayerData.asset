@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a868b7cd89e467429bd990f4a61d619, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  numCoins: 0
+  numCoins: 25
+  numSkrap: 9
   totalValue: 0
   playerHealth: 0
+  playerSpeed: 0
   playerScore: 0
   highScore: 0
