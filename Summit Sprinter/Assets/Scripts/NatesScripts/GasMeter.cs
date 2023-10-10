@@ -12,6 +12,8 @@ public class GasMeter : MonoBehaviour
 
     public float currentValue;
 
+    public float GasDrain { get => gasDrain; set => gasDrain = value; }
+
     private void Awake()
     {       
         //GameManager.Instance.gasLevel = GasSlider.maxValue;
@@ -26,7 +28,7 @@ public class GasMeter : MonoBehaviour
         //GameManager.Instance.gasLevel -= gasDrain * Time.deltaTime;
        // GameManager.Instance.gasLevel = Mathf.Max(GameManager.Instance.gasLevel, GasSlider.minValue);
         //GasSlider.value = GameManager.Instance.gasLevel;
-        currentValue -= gasDrain * Time.deltaTime;
+        currentValue -= GasDrain * Time.deltaTime;
         currentValue = Mathf.Max(currentValue, GasSlider.minValue);
         GasSlider.value = currentValue;
     }

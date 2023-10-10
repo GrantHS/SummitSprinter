@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCollision : MonoBehaviour
 {
@@ -13,6 +15,8 @@ public class PlayerCollision : MonoBehaviour
     public Quaternion spawnRot;
     private float minYpos = -50;
     public float respawnTime = 3f;
+    public Text coinCount;
+    public Text skrapCount;
 
     private void Awake()
     {
@@ -47,6 +51,7 @@ public class PlayerCollision : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             playerDataSO.numCoins++;
+            coinCount.text = "Coins: " + playerDataSO.numCoins.ToString();
             //Debug.Log("You have " + numCoins + " coins");
         }
 
@@ -67,6 +72,7 @@ public class PlayerCollision : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             playerDataSO.numSkrap++;
+            skrapCount.text = "Skraps: " + playerDataSO.numSkrap.ToString();
             //Debug.Log("You have " + numSkrap + " skrap");
         }
 
@@ -76,13 +82,13 @@ public class PlayerCollision : MonoBehaviour
             switch (_badGuy.enemyType)
             {
                 case Enemies.Spikey:
-                    TakeDamage(_badGuy);
+                    //TakeDamage(_badGuy);
                     break;
                 case Enemies.Wheelie:
-                    TakeDamage(_badGuy);
+                    //TakeDamage(_badGuy);
                     break;
                 case Enemies.Rocketee:
-                    TakeDamage(_badGuy);
+                    //TakeDamage(_badGuy);
                     break;
                 default:
                     break;
@@ -92,7 +98,7 @@ public class PlayerCollision : MonoBehaviour
 
     }
 
-    public void TakeDamage(BadGuy badGuy)
+    private void TakeDamage(BadGuy badGuy)
     {
         _playerMovement.gasMeter.currentValue -= badGuy.damage;
         /*
