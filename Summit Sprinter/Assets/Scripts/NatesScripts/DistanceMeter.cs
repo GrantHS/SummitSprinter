@@ -10,17 +10,25 @@ public class DistanceMeter : MonoBehaviour
     public Slider DisSlider;
 
     private float previousXPosition;
+    private float toatalDis;
+
+    public Text Distance;
     // Update is called once per frame
     void Update()
     {
         
         float playerXPosition = Jeep.position.x;
-        float MinusX = previousXPosition - playerXPosition;
-        DisSlider.value += MinusX / Mathf.Abs(xPos);
-        
+        float disTraveled = Mathf.Abs(previousXPosition - playerXPosition);
+        toatalDis += disTraveled;
+
+        DisSlider.value = toatalDis / Mathf.Abs(xPos);
 
       
         previousXPosition = playerXPosition;
+        // Debug.Log("Dis Traveled:" + toatalDis);
+
+
+        Distance.text = "Distance: " + Mathf.RoundToInt(toatalDis).ToString();
     }
 
 
