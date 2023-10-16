@@ -10,6 +10,8 @@ public class GameManager : Singleton<GameManager>
     public GameObject playerPrefab;
     public Canvas deathCanvas;
     private float idleDrain = 0.5f;
+    public GameObject levelUI;
+    public GameObject startUI;
 
     public bool isDead
     {
@@ -71,8 +73,36 @@ public class GameManager : Singleton<GameManager>
 
     }
 
+    private void OnEnable()
+    {
+        levelUI.SetActive(false);
+        startUI.SetActive(true);
+    }
+
     private void Start()
     {
         Debug.Log("Game Manager Active");
+
+    }
+
+    public void OnStartPressed()
+    {
+        StartGame();
+    }
+
+    private void StartGame()
+    {
+        levelUI.SetActive(true);
+        startUI.SetActive(false);
+    }
+
+    public void OnQuitPressed()
+    {
+        QuitGame();
+    }
+
+    private void QuitGame()
+    {
+        Application.Quit();
     }
 }

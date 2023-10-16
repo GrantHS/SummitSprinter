@@ -6,13 +6,14 @@ public class Follower : MonoBehaviour
 {
     private GameObject target;
 
+    [Range(2f, 10f)]
     [SerializeField]
-    [Tooltip("How far on the Z-axis this object will follow.")]
-    private float _trackingDistance;
+    [Tooltip("The size of the camera")]
+    private float _trackingDistance = 5f;
 
     /*
     [SerializeField]
-    [Tooltip("How high up the camara is going to be relative to the target")]
+    
     private float _trackingHeight;
     */
 
@@ -21,17 +22,19 @@ public class Follower : MonoBehaviour
     private Vector3 _currentLocation;
 
     private Vector3 _cameraOffset;
+
     // Start is called before the first frame update
     private void Awake()
     {
         target = FindObjectOfType<PlayerMovement>().gameObject;
-        _cameraOffset = new Vector3(-6.50f, 0, 0);
+        _cameraOffset = new Vector3(-6.50f, 0, 10f);
     }
     void Start()
     {
+        
         _targetLocation = target.transform.position;
         _currentLocation = target.transform.position + _cameraOffset;
-        _currentLocation.z = _trackingDistance;
+        //_currentLocation.z = _trackingDistance;
         this.transform.position = _currentLocation;
         
     }
@@ -39,6 +42,7 @@ public class Follower : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        this.GetComponent<Camera>().orthographicSize = _trackingDistance;
         _currentLocation = this.transform.position;
         _targetLocation = target.transform.position + _cameraOffset;
         _trackDirection = _targetLocation - _currentLocation;
