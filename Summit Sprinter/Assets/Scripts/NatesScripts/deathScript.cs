@@ -34,9 +34,8 @@ public class deathScript : MonoBehaviour
         dead = true;
         Debug.Log("paused");
         Time.timeScale = 0f;
-        DeathCanvas.SetActive(true);
-
-
+        this.gameObject.SetActive(true);
+        DeathCanvas.SetActive(true);        
     }
     public void OpenMainMenu()
     {
