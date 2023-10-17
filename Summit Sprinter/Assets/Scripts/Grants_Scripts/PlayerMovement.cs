@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     {
         playerControls = new PlayerInputActions();
         _suspensionSystem = GetComponent<SuspensionSystem>();
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
     }
 
     

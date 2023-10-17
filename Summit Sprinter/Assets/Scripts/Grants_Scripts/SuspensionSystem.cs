@@ -9,6 +9,7 @@ public class SuspensionSystem : MonoBehaviour
 {
     public GameObject wheel;
     public GameObject[] _wheelPrefabs = new GameObject[4];
+    public Transform[] _wheelPos = new Transform[4];
     private Vector3 orginDiff = new Vector3(2.6f, 0, 0);
 
     public Vector3[] _wheels = new Vector3[4];
@@ -66,9 +67,11 @@ public class SuspensionSystem : MonoBehaviour
             
             //Debug.Log(transform.position - orginDiff + _wheels[i]);
             RaycastHit hit;
-            Physics.Raycast(transform.position - orginDiff + _wheels[i], -transform.up, out hit, maxSuspLength);
-            Debug.DrawRay(transform.position - orginDiff + _wheels[i], -transform.up, Color.red);
-            
+            //Physics.Raycast(transform.position - orginDiff + _wheels[i], -transform.up, out hit, maxSuspLength);
+            Physics.Raycast(_wheelPos[i].position + _wheels[i], -transform.up, out hit, maxSuspLength);
+            //Debug.DrawRay(transform.position - orginDiff + _wheels[i], -transform.up, Color.red);
+            Debug.DrawRay(_wheelPos[i].position + _wheels[i], -transform.up, Color.red);
+
             if (hit.collider != null)
             {
                 
@@ -94,6 +97,23 @@ public class SuspensionSystem : MonoBehaviour
         }
 
         //Debug.Log("Grounded Wheels: " + groundedWheels);
+    }
+
+    GameObject FindChildrenWithTag(GameObject parent, string tag)
+    {
+        GameObject child = null;
+
+
+        foreach (Transform transform in parent.transform)
+        {
+            if (transform.CompareTag(tag))
+            {
+                child = transform.gameObject;
+                break;
+            }
+        }
+
+        return child;
     }
 
 
