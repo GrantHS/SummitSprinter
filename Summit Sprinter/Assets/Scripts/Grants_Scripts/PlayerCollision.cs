@@ -10,7 +10,8 @@ public class PlayerCollision : MonoBehaviour
     public PlayerDataSO playerDataSO;
     private PlayerMovement _playerMovement;
     private BadGuy _badGuy;
-    private GameObject _roof;
+    public GameObject mainUI;
+    public GameObject endUI;
     public Vector3 spawnPos;
     public Quaternion spawnRot;
     private float minYpos = -50;
@@ -27,7 +28,6 @@ public class PlayerCollision : MonoBehaviour
         
         _playerMovement = GetComponent<PlayerMovement>();
 
-        _roof = FindChildWithTag(this.gameObject, "Cargo");
    
     }
 
@@ -76,53 +76,42 @@ public class PlayerCollision : MonoBehaviour
             //Debug.Log("You have " + numSkrap + " skrap");
         }
 
-        if (other.GetComponent<EnemyMovement>())
-        {
-            _badGuy = other.GetComponent<BadGuy>();
-            switch (_badGuy.enemyType)
-            {
-                case Enemies.Spikey:
-                    //TakeDamage(_badGuy);
-                    break;
-                case Enemies.Wheelie:
-                    //TakeDamage(_badGuy);
-                    break;
-                case Enemies.Rocketee:
-                    //TakeDamage(_badGuy);
-                    break;
-                default:
-                    break;
-            }
-        }
-
 
     }
 
-    private void TakeDamage(BadGuy badGuy)
+    private void OnCollisionEnter(Collision collision)
     {
-        _playerMovement.gasMeter.currentValue -= badGuy.damage;
-        /*
-        if(playerDataSO.playerHealth <= 0)
+        if (collision.gameObject.CompareTag("End"))
         {
-            GameManager.Instance.InvokeDeath(this.gameObject, respawnTime, spawnPos, spawnRot);
-        }
-        */
+            GameObject go = collision.gameObject;
+            Debug.Log("colliding with " + go.name);
 
-        switch (badGuy.enemyType)
-        {
-            case Enemies.Spikey:
-                //badGuy.GetComponent<BoxCollider>().isTrigger = true;
-                break;
-            case Enemies.Wheelie:
-                
-                break;
-            case Enemies.Rocketee:
-                
-                break;
-            default:
-                break;
+            StartCoroutine(FlyAway(go, 5f));
+
+            mainUI.SetActive(false);
+            endUI.SetActive(true);
+            endUI.GetComponent<PauseMenu>().isPaused = true;
         }
     }
+
+    private IEnumerator FlyAway(GameObject go, float lifeTime)
+    {
+        if (!go.GetComponent<Rigidbody>())
+        {
+            go.AddComponent<Rigidbody>();
+        }
+
+        Rigidbody rb = go.GetComponent<Rigidbody>();
+        Vector3 angleDirection = new Vector3(1, 1, 0);
+        float flySpeed = 50f;
+        rb.AddForce(angleDirection * flySpeed);
+        yield return new WaitForSeconds(lifeTime);
+        go.SetActive(false);
+        
+    }
+
+
+
 
     GameObject FindChildWithTag(GameObject parent, string tag)
     {

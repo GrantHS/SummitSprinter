@@ -18,6 +18,7 @@ public class SoftSpot : MonoBehaviour
         if (other.gameObject.CompareTag("Ground"))
         {
             deathCanvas.SetActive(true);
+            deathCanvas.GetComponent<PauseMenu>().isPaused = true;
             Time.timeScale = 0f;
             
             // GameManager.Instance.InvokeDeath(gameObject.GetComponentInParent<PlayerMovement>().gameObject, playerCollision.respawnTime, playerCollision.spawnPos, playerCollision.spawnRot);

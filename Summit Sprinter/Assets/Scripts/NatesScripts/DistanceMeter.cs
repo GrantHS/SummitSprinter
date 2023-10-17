@@ -12,7 +12,7 @@ public class DistanceMeter : MonoBehaviour
     private float previousXPosition;
     private float toatalDis;
 
-    public Text Distance;
+    //public Text Distance;
     // Update is called once per frame
     void Update()
     {
@@ -28,7 +28,7 @@ public class DistanceMeter : MonoBehaviour
         // Debug.Log("Dis Traveled:" + toatalDis);
 
 
-        Distance.text = "Distance: " + Mathf.RoundToInt(toatalDis).ToString();
+        //Distance.text = "Distance: " + Mathf.RoundToInt(toatalDis).ToString();
     }
 
 

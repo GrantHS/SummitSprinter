@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
 {
     public bool isPaused = false;
     public GameObject pauseMenuCanvas;
+    public GameObject player;
     //public GameObject endMenuCanvas;
 
    
@@ -55,6 +56,7 @@ public class PauseMenu : MonoBehaviour
     public void Restart()
     {
         Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+        //player.GetComponent<SoftSpot>().Restart();
         Time.timeScale = 1f;
         Cursor.visible = true;
 
