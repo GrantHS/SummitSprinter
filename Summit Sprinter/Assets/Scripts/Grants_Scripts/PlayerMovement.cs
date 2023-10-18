@@ -179,4 +179,12 @@ public class PlayerMovement : MonoBehaviour
         rb.AddForce(Vector2.left * _currentVelocity, ForceMode.Force);
 
     }
+
+
+    public IEnumerator StartingMove()
+    {
+        _goingForward = true;
+        yield return new WaitForSeconds(2.0f);
+        _goingForward = false;
+    }
 }

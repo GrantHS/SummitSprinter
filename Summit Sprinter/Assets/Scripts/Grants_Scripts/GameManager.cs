@@ -92,8 +92,9 @@ public class GameManager : Singleton<GameManager>
 
     private void StartGame()
     {
-        levelUI.SetActive(true);
         startUI.SetActive(false);
+        StartCoroutine(playerMovement.StartingMove());
+        levelUI.SetActive(true);
     }
 
     public void OnQuitPressed()
@@ -105,4 +106,6 @@ public class GameManager : Singleton<GameManager>
     {
         Application.Quit();
     }
+
+  
 }
