@@ -17,13 +17,14 @@ public class SoftSpot : MonoBehaviour
 
         if (other.gameObject.CompareTag("Ground"))
         {
-            deathCanvas.SetActive(true);
-            deathCanvas.GetComponent<PauseMenu>().isPaused = true;
-            Time.timeScale = 0f;
+            deathCanvas.GetComponent<deathScript>().Death();
+            //deathCanvas.SetActive(true);
+            //deathCanvas.GetComponent<PauseMenu>().isPaused = true;
+            //Time.timeScale = 0f;
             
             // GameManager.Instance.InvokeDeath(gameObject.GetComponentInParent<PlayerMovement>().gameObject, playerCollision.respawnTime, playerCollision.spawnPos, playerCollision.spawnRot);
 
-            if (GetComponentInParent<PlayerMovement>() != null)
+            if (GetComponentInParent<PlayerMovement>() == null)
             {
                 Debug.Log("null player");
 

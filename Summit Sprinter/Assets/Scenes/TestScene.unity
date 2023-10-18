@@ -2831,7 +2831,7 @@ PrefabInstance:
     - target: {fileID: 1688159708691785949, guid: e14facba8f5103547ad23515a6c0e835,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.31
+      value: 13.22
       objectReference: {fileID: 0}
     - target: {fileID: 1688159708691785949, guid: e14facba8f5103547ad23515a6c0e835,
         type: 3}
@@ -2846,17 +2846,17 @@ PrefabInstance:
     - target: {fileID: 1688159708691785949, guid: e14facba8f5103547ad23515a6c0e835,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1688159708691785949, guid: e14facba8f5103547ad23515a6c0e835,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1688159708691785949, guid: e14facba8f5103547ad23515a6c0e835,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1688159708691785949, guid: e14facba8f5103547ad23515a6c0e835,
         type: 3}
@@ -2952,7 +2952,7 @@ PrefabInstance:
         type: 3}
       propertyPath: deathCanvas
       value: 
-      objectReference: {fileID: 1305974891}
+      objectReference: {fileID: 1582936872}
     - target: {fileID: 9120963018601364338, guid: e14facba8f5103547ad23515a6c0e835,
         type: 3}
       propertyPath: gasMeter
@@ -3800,6 +3800,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DeathMenuController
+      objectReference: {fileID: 0}
+    - target: {fileID: 6926352015409253772, guid: d9c479659debd3b429979b3363b1889d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8372665939961858213, guid: d9c479659debd3b429979b3363b1889d,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -24.279877
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
