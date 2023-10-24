@@ -6,7 +6,42 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 public class SuspensionSystem : MonoBehaviour
-{
+{/*
+    private float minYPos;
+    private float maxYPos;
+    public float maxSuspLength;
+
+    private void Awake()
+    {
+        minYPos = transform.position.y
+    }
+
+    private void Update()
+    {
+        RaycastHit hit;
+        Physics.Raycast(minWheelPos, maxWheelPos-transform.up, out hit, maxSuspLevel);
+        Debug.DrawRay(minWheelPos, maxWheelPos - transform.up, Color.red);
+    }
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
     public GameObject wheel;
     public GameObject[] _wheelPrefabs = new GameObject[4];
     public Transform[] _wheelPos = new Transform[4];
@@ -115,93 +150,6 @@ public class SuspensionSystem : MonoBehaviour
 
         return child;
     }
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-     * Old script - might need later
-
-
-
-    private GameObject _chassis;
-    private float _maxSpring;
-    private float _minSpring;
-    private float _springSpeed = 0.5f;
-
-    //public for testing
-    public Wheel[] _wheels = new Wheel[4];
-
-
-    private void OnEnable()
-    {
-        _chassis = this.gameObject;
-        _wheels = this.GetComponentsInChildren<Wheel>();
-    }
-
-    private void Start()
-    {
-        _maxSpring = CallibrateShocks(0);
-        
-    }
-
-    private float CallibrateShocks(float startValue)
-    {
-        float maxValue = startValue;
-
-        foreach (Wheel wheel in _wheels)
-        {
-            float topWheel = wheel.transform.position.y;
-            if (Mathf.)
-            {
-                maxValue = Vector3.Distance(this.transform.position, wheel.transform.position);
-            }
-        }
-        if (maxValue == startValue) Debug.Log("Error Callibrating Shocks");
-        Debug.Log(maxValue);
-        return maxValue;
-    }
-
-    private void Spring()
-    {
-        Vector3 springPos = this.transform.position;
-        if (springPos.y >= _maxSpring)
-        {
-            Debug.Log("Spring already sprung");
-            return;
-        }
-
-        Debug.Log("Springing");
-        while (springPos.y < _maxSpring)
-        {
-            springPos.y += _springSpeed;
-            this.transform.position = springPos;
-
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Wheel"))
-        {
-            _minSpring = _chassis.transform.position.y;
-            Spring();
-        }
-    }
-    */
 }

@@ -67,8 +67,10 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_goingForward)
             {
+                /*
                 if (_suspensionSystem.groundedWheels > 0)
                 {
+                */
                     rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
                     gasMeter.currentValue -= _powerDrain * Time.deltaTime;
 
@@ -76,13 +78,14 @@ public class PlayerMovement : MonoBehaviour
                     {
                         _currentVelocity += _acceleration * Time.deltaTime;
                     }
-                }
+
+                //}
                 rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
             }
             else if (_goingBackwards)
             {
-                if (_suspensionSystem.groundedWheels > 0)
-                {
+                //if (_suspensionSystem.groundedWheels > 0)
+                //{
                     rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
                     gasMeter.currentValue -= _powerDrain * Time.deltaTime;
 
@@ -90,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         _currentVelocity -= _acceleration * Time.deltaTime;
                     }
-                }
+               // }
                 rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
 
             }
@@ -118,6 +121,9 @@ public class PlayerMovement : MonoBehaviour
                 _currentVelocity += _acceleration * Time.deltaTime;
             }
         }
+
+        //New Suspension
+        //rb.AddForceAtPosition(Mathf.Clamp()
 
 
     }
