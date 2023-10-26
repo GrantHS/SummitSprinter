@@ -6,9 +6,45 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 public class SuspensionSystem : MonoBehaviour
-{
+{/*
+    private float minYPos;
+    private float maxYPos;
+    public float maxSuspLength;
+
+    private void Awake()
+    {
+        minYPos = transform.position.y
+    }
+
+    private void Update()
+    {
+        RaycastHit hit;
+        Physics.Raycast(minWheelPos, maxWheelPos-transform.up, out hit, maxSuspLevel);
+        Debug.DrawRay(minWheelPos, maxWheelPos - transform.up, Color.red);
+    }
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
     public GameObject wheel;
     public GameObject[] _wheelPrefabs = new GameObject[4];
+    public Transform[] _wheelPos = new Transform[4];
     private Vector3 orginDiff = new Vector3(2.6f, 0, 0);
 
     public Vector3[] _wheels = new Vector3[4];
@@ -66,9 +102,11 @@ public class SuspensionSystem : MonoBehaviour
             
             //Debug.Log(transform.position - orginDiff + _wheels[i]);
             RaycastHit hit;
-            Physics.Raycast(transform.position - orginDiff + _wheels[i], -transform.up, out hit, maxSuspLength);
-            Debug.DrawRay(transform.position - orginDiff + _wheels[i], -transform.up, Color.red);
-            
+            //Physics.Raycast(transform.position - orginDiff + _wheels[i], -transform.up, out hit, maxSuspLength);
+            Physics.Raycast(_wheelPos[i].position + _wheels[i], -transform.up, out hit, maxSuspLength);
+            //Debug.DrawRay(transform.position - orginDiff + _wheels[i], -transform.up, Color.red);
+            Debug.DrawRay(_wheelPos[i].position + _wheels[i], -transform.up, Color.red);
+
             if (hit.collider != null)
             {
                 
@@ -96,92 +134,22 @@ public class SuspensionSystem : MonoBehaviour
         //Debug.Log("Grounded Wheels: " + groundedWheels);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-     * Old script - might need later
-
-
-
-    private GameObject _chassis;
-    private float _maxSpring;
-    private float _minSpring;
-    private float _springSpeed = 0.5f;
-
-    //public for testing
-    public Wheel[] _wheels = new Wheel[4];
-
-
-    private void OnEnable()
+    GameObject FindChildrenWithTag(GameObject parent, string tag)
     {
-        _chassis = this.gameObject;
-        _wheels = this.GetComponentsInChildren<Wheel>();
-    }
+        GameObject child = null;
 
-    private void Start()
-    {
-        _maxSpring = CallibrateShocks(0);
-        
-    }
 
-    private float CallibrateShocks(float startValue)
-    {
-        float maxValue = startValue;
-
-        foreach (Wheel wheel in _wheels)
+        foreach (Transform transform in parent.transform)
         {
-            float topWheel = wheel.transform.position.y;
-            if (Mathf.)
+            if (transform.CompareTag(tag))
             {
-                maxValue = Vector3.Distance(this.transform.position, wheel.transform.position);
+                child = transform.gameObject;
+                break;
             }
         }
-        if (maxValue == startValue) Debug.Log("Error Callibrating Shocks");
-        Debug.Log(maxValue);
-        return maxValue;
+
+        return child;
     }
+    
 
-    private void Spring()
-    {
-        Vector3 springPos = this.transform.position;
-        if (springPos.y >= _maxSpring)
-        {
-            Debug.Log("Spring already sprung");
-            return;
-        }
-
-        Debug.Log("Springing");
-        while (springPos.y < _maxSpring)
-        {
-            springPos.y += _springSpeed;
-            this.transform.position = springPos;
-
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Wheel"))
-        {
-            _minSpring = _chassis.transform.position.y;
-            Spring();
-        }
-    }
-    */
 }

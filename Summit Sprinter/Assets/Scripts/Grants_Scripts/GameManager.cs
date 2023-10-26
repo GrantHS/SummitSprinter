@@ -20,10 +20,6 @@ public class GameManager : Singleton<GameManager>
 
     public float gasLevel;
 
-    private void Update()
-    {
-        //gasLevel -= idleDrain * Time.deltaTime;
-    }
 
     public void InvokeDeath(GameObject player, float respawnTime, Vector3 spawnPos, Quaternion spawnRot)
     {
@@ -75,14 +71,14 @@ public class GameManager : Singleton<GameManager>
 
     private void OnEnable()
     {
-        levelUI.SetActive(false);
-        startUI.SetActive(true);
+        
     }
 
     private void Start()
     {
         Debug.Log("Game Manager Active");
-
+        levelUI.SetActive(false);
+        startUI.SetActive(true);
     }
 
     public void OnStartPressed()

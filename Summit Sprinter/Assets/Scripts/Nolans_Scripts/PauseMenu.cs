@@ -22,6 +22,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
+        /*
         if (isPaused)
         {
             pauseMenuCanvas.SetActive(true);
@@ -30,6 +31,7 @@ public class PauseMenu : MonoBehaviour
         {
             pauseMenuCanvas.SetActive(false);
         }
+        */
     }
 
     public void Pause()
@@ -37,6 +39,7 @@ public class PauseMenu : MonoBehaviour
         isPaused = true;
         Debug.Log("paused");
         Time.timeScale = 0f;
+        this.gameObject.SetActive(true);
         pauseMenuCanvas.SetActive(true);
        
 
@@ -46,6 +49,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         pauseMenuCanvas.SetActive(false);
+        this.gameObject.SetActive(false);
         isPaused = false;
     }
 
@@ -56,6 +60,7 @@ public class PauseMenu : MonoBehaviour
     public void Restart()
     {
         Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
+        GameManager.Instance.startUI.SetActive(false);
         //player.GetComponent<SoftSpot>().Restart();
         Time.timeScale = 1f;
         Cursor.visible = true;
