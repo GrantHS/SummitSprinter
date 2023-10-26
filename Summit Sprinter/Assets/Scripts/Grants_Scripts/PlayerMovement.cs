@@ -83,8 +83,10 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("Current Speed: " + _currentVelocity);
         if (gasMeter.currentValue > 0)
         {
+            
             if (_goingForward)
             {
+                //Debug.Log("moving");
                 rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
                 gasMeter.currentValue -= _powerDrain * Time.deltaTime;
 
@@ -97,6 +99,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (_goingBackwards)
             {
+                //Debug.Log("moving");
                 rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
                 gasMeter.currentValue -= _powerDrain * Time.deltaTime;
 
@@ -110,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
+                //Debug.Log("not moving");
                 if (_currentVelocity > 0)
                 {
                     _currentVelocity -= _acceleration * Time.deltaTime;
@@ -122,7 +126,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log("Out of gas");
+            //Debug.Log("Out of gas");
             if (_currentVelocity > 0)
             {
                 _currentVelocity -= _acceleration * Time.deltaTime;
