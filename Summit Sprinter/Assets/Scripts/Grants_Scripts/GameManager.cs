@@ -6,8 +6,8 @@ using System;
 
 public class GameManager : Singleton<GameManager>
 {
-    public PlayerMovement playerMovement;
-    public GameObject playerPrefab;
+    private PlayerMovement playerMovement;
+    public GameObject playerObject;
     public Canvas deathCanvas;
     private float idleDrain = 0.5f;
     public GameObject levelUI;
@@ -79,6 +79,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Game Manager Active");
         levelUI.SetActive(false);
         startUI.SetActive(true);
+        playerMovement = playerObject.GetComponent<PlayerMovement>();
     }
 
     public void OnStartPressed()
@@ -89,7 +90,7 @@ public class GameManager : Singleton<GameManager>
     private void StartGame()
     {
         startUI.SetActive(false);
-        StartCoroutine(playerMovement.StartingMove());
+        //StartCoroutine(playerMovement.StartingMove());
         levelUI.SetActive(true);
     }
 
