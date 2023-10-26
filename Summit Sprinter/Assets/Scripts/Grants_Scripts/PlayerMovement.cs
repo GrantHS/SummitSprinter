@@ -7,12 +7,13 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public GasMeter gasMeter;
+    public Wheel[] wheels = new Wheel[4];
     private float _powerDrain = 2f;
     //public PlayerDataSO playerData;
     public float _currentVelocity = 0f;
     private float _topSpeed =10f;
-    private float _torque = 15f;
-    private float _acceleration = 3f;
+    private float _torque = 25f;
+    private float _acceleration = 20f;
     //private float _wheelSpeed = 40f;
     //private float _rotateSpeed = 10f;
     private InputAction _move;
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
     public bool isGrounded = true;
+    private int groundedWheels = 0;
     private bool _goingForward = false;
     private bool _goingBackwards = false;
 
@@ -62,39 +64,48 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        foreach (Wheel wheel in wheels)
+        {
+            if (wheel.isGrounded)
+            {
+                groundedWheels++;
+            }
+
+            
+        }
+
+        if (groundedWheels >= 4)
+        {
+            isGrounded = true;
+        }
+        else isGrounded = false;
+
         //Debug.Log("Current Speed: " + _currentVelocity);
-        if(gasMeter.currentValue > 0)
+        if (gasMeter.currentValue > 0)
         {
             if (_goingForward)
             {
-                /*
-                if (_suspensionSystem.groundedWheels > 0)
+                rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
+                gasMeter.currentValue -= _powerDrain * Time.deltaTime;
+
+                if (_currentVelocity < _topSpeed)
                 {
-                */
-                    rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
-                    gasMeter.currentValue -= _powerDrain * Time.deltaTime;
+                    _currentVelocity += _acceleration * Time.deltaTime;
+                }
 
-                    if (_currentVelocity < _topSpeed)
-                    {
-                        _currentVelocity += _acceleration * Time.deltaTime;
-                    }
-
-                //}
-                rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
+                if (!isGrounded) rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
             }
             else if (_goingBackwards)
             {
-                //if (_suspensionSystem.groundedWheels > 0)
-                //{
-                    rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
-                    gasMeter.currentValue -= _powerDrain * Time.deltaTime;
+                rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
+                gasMeter.currentValue -= _powerDrain * Time.deltaTime;
 
-                    if (_currentVelocity < _topSpeed)
-                    {
-                        _currentVelocity -= _acceleration * Time.deltaTime;
-                    }
-               // }
-                rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
+                if (_currentVelocity < _topSpeed)
+                {
+                    _currentVelocity -= _acceleration * Time.deltaTime;
+                }
+
+               if (!isGrounded) rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
 
             }
             else
@@ -122,8 +133,8 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        //New Suspension
-        //rb.AddForceAtPosition(Mathf.Clamp()
+        //Keep on bottom of method
+        groundedWheels = 0;
 
 
     }

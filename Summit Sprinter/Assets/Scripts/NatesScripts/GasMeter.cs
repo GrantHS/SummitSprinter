@@ -28,9 +28,12 @@ public class GasMeter : MonoBehaviour
         //GameManager.Instance.gasLevel -= gasDrain * Time.deltaTime;
        // GameManager.Instance.gasLevel = Mathf.Max(GameManager.Instance.gasLevel, GasSlider.minValue);
         //GasSlider.value = GameManager.Instance.gasLevel;
+
+        /* Temp disable
         currentValue -= GasDrain * Time.deltaTime;
         currentValue = Mathf.Max(currentValue, GasSlider.minValue);
         GasSlider.value = currentValue;
+        */
     }
 
     public void FillTank()

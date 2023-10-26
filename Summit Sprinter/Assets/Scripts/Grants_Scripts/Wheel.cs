@@ -1,21 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Wheel : MonoBehaviour
 {
-    public bool isGrounded = false;
-    private float speed = 30f;
-
+    public bool isGrounded;
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
     }
 
-    private void Update()
+    private void OnCollisionExit(Collision collision)
     {
-        gameObject.transform.Rotate(0,0,-speed * Time.deltaTime);
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
     }
 }
