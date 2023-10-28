@@ -11,6 +11,9 @@ TagManager:
   - End
   - Cargo
   - Skrap
+  - Merge 1
+  - Merge 2
+  - Merge 3
   layers:
   - Default
   - TransparentFX
