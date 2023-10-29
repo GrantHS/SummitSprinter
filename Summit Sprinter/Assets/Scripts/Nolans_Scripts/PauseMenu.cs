@@ -52,15 +52,10 @@ public class PauseMenu : MonoBehaviour
         this.gameObject.SetActive(false);
         isPaused = false;
     }
-
-    public void OpenMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
     public void Restart()
     {
         Scene scene = SceneManager.GetActiveScene(); SceneManager.LoadScene(scene.name);
-        GameManager.Instance.startUI.SetActive(false);
+      //  GameManager.Instance.startUI.SetActive(false);
         //player.GetComponent<SoftSpot>().Restart();
         Time.timeScale = 1f;
         Cursor.visible = true;

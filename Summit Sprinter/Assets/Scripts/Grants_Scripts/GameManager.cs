@@ -71,11 +71,12 @@ public class GameManager : Singleton<GameManager>
 
     private void OnEnable()
     {
-        
+       
     }
 
     private void Start()
     {
+
         Debug.Log("Game Manager Active");
         levelUI.SetActive(false);
         startUI.SetActive(true);
@@ -91,6 +92,7 @@ public class GameManager : Singleton<GameManager>
         startUI.SetActive(false);
         StartCoroutine(playerMovement.StartingMove());
         levelUI.SetActive(true);
+
     }
 
     public void OnQuitPressed()
