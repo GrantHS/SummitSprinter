@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public GasMeter gasMeter;
+    private Flying _flying;
     public Wheel[] wheels = new Wheel[4];
     private float _powerDrain = 2f;
     public float _currentVelocity = 0f;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerInputActions();
+        _flying = GetComponent<Flying>();
         //DontDestroyOnLoad(this.gameObject);
     }
 
@@ -88,7 +90,16 @@ public class PlayerMovement : MonoBehaviour
                     _currentVelocity += _acceleration * Time.deltaTime;
                 }
 
-                if (!isGrounded) rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
+                if (!isGrounded)
+                {
+                    if (_flying.canFly)
+                    {
+                        rb.AddTorque(Vector3.forward * _flying.AirTorque, ForceMode.Force);
+                    }
+                    else rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
+                }
+                    
+
             }
             else if (_goingBackwards)
             {
@@ -101,7 +112,14 @@ public class PlayerMovement : MonoBehaviour
                     _currentVelocity -= _acceleration * Time.deltaTime;
                 }
 
-               if (!isGrounded) rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
+                if (isGrounded)
+                {
+                    if (_flying.canFly)
+                    {
+                        rb.AddTorque(Vector3.forward * -_flying.AirTorque, ForceMode.Force);
+                    }
+                    else rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
+                }
 
             }
             else

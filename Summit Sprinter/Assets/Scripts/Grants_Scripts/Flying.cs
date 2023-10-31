@@ -10,9 +10,13 @@ public class Flying : MonoBehaviour
     private Rigidbody rb;
     private Wheel[] wheels;
     public bool canFly = true;
+    private float airTorque = 20f;
+
+    public float AirTorque { get => airTorque; private set => airTorque = value; }
 
     private void Start()
     {
+        canFly = true;
         playerMovement = GetComponent<PlayerMovement>();
         _player = GameManager.Instance.playerObject;
         rb = GetComponent<Rigidbody>();
@@ -40,7 +44,5 @@ public class Flying : MonoBehaviour
                 rb.useGravity = true;
             }
         }
-
- 
     }
 }
