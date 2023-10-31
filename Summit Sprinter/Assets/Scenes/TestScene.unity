@@ -3062,6 +3062,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &781421480 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1004755446909970122, guid: 2ef21042d5a473841bdb0ba7a17c3d96,
+    type: 3}
+  m_PrefabInstance: {fileID: 1910436794}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &782706470
 GameObject:
   m_ObjectHideFlags: 0
@@ -4750,6 +4762,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1113953735}
   m_CullTransparentMesh: 1
+--- !u!114 &1131556222 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4724163390610351046, guid: 2ef21042d5a473841bdb0ba7a17c3d96,
+    type: 3}
+  m_PrefabInstance: {fileID: 1910436794}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1166185928
 GameObject:
   m_ObjectHideFlags: 0
@@ -5762,6 +5786,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikey (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5777547967569731084, guid: 51d602f6efea4c24eabc374465240ea2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6585997584126854326, guid: 51d602f6efea4c24eabc374465240ea2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6304,22 +6333,22 @@ PrefabInstance:
         type: 3}
       propertyPath: endUI
       value: 
-      objectReference: {fileID: 3584192420624373217}
+      objectReference: {fileID: 1305974891}
     - target: {fileID: 2772859479263638577, guid: e14facba8f5103547ad23515a6c0e835,
         type: 3}
       propertyPath: mainUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5134480547590584599}
     - target: {fileID: 2772859479263638577, guid: e14facba8f5103547ad23515a6c0e835,
         type: 3}
       propertyPath: coinCount
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 781421480}
     - target: {fileID: 2772859479263638577, guid: e14facba8f5103547ad23515a6c0e835,
         type: 3}
       propertyPath: skrapCount
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1131556222}
     - target: {fileID: 3761365056778058400, guid: e14facba8f5103547ad23515a6c0e835,
         type: 3}
       propertyPath: m_Mass
@@ -8012,6 +8041,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706840108}
   m_CullTransparentMesh: 1
+--- !u!114 &1715389098 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8541099777193714071, guid: 2ef21042d5a473841bdb0ba7a17c3d96,
+    type: 3}
+  m_PrefabInstance: {fileID: 1910436794}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1749925011
 GameObject:
   m_ObjectHideFlags: 0
@@ -8365,6 +8406,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1356703095178968570, guid: 1bb9b7a092d2e1c40b73259b40c861da,
         type: 3}
+      propertyPath: endUI
+      value: 
+      objectReference: {fileID: 3584192420624373217}
+    - target: {fileID: 1356703095178968570, guid: 1bb9b7a092d2e1c40b73259b40c861da,
+        type: 3}
+      propertyPath: mainUI
+      value: 
+      objectReference: {fileID: 5134480547590584599}
+    - target: {fileID: 1356703095178968570, guid: 1bb9b7a092d2e1c40b73259b40c861da,
+        type: 3}
       propertyPath: Merge_1
       value: 
       objectReference: {fileID: 41468568}
@@ -8382,12 +8433,12 @@ PrefabInstance:
         type: 3}
       propertyPath: coinCount
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 781421480}
     - target: {fileID: 1356703095178968570, guid: 1bb9b7a092d2e1c40b73259b40c861da,
         type: 3}
       propertyPath: skrapCount
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1131556222}
     - target: {fileID: 2545628360847990914, guid: 1bb9b7a092d2e1c40b73259b40c861da,
         type: 3}
       propertyPath: m_Name
@@ -8452,7 +8503,7 @@ PrefabInstance:
         type: 3}
       propertyPath: GasSlider
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1715389098}
     - target: {fileID: 6779363294831266824, guid: 1bb9b7a092d2e1c40b73259b40c861da,
         type: 3}
       propertyPath: deathCanvas
@@ -9743,6 +9794,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Spikey
+      objectReference: {fileID: 0}
+    - target: {fileID: 5777547967569731084, guid: 51d602f6efea4c24eabc374465240ea2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6585997584126854326, guid: 51d602f6efea4c24eabc374465240ea2,
         type: 3}
