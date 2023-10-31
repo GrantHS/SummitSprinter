@@ -9,18 +9,12 @@ public class PlayerMovement : MonoBehaviour
     public GasMeter gasMeter;
     public Wheel[] wheels = new Wheel[4];
     private float _powerDrain = 2f;
-    //public PlayerDataSO playerData;
     public float _currentVelocity = 0f;
     private float _topSpeed =10f;
-    private float _torque = 25f;
+    private float _torque = 50f;
     private float _acceleration = 20f;
-    //private float _wheelSpeed = 40f;
-    //private float _rotateSpeed = 10f;
-    private InputAction _move;
-    private Vector2 _moveDirection;
 
     public PlayerInputActions playerControls;
-    private SuspensionSystem _suspensionSystem;
     private Rigidbody rb;
 
     public bool isGrounded = true;
@@ -31,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         playerControls = new PlayerInputActions();
-        _suspensionSystem = GetComponent<SuspensionSystem>();
         //DontDestroyOnLoad(this.gameObject);
     }
 

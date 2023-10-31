@@ -95,7 +95,7 @@ public class PlayerCollision : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             playerDataSO.numCoins++;
-            coinCount.text = "Coins: " + playerDataSO.numCoins.ToString();
+            coinCount.text = ": " + playerDataSO.numCoins.ToString();
             //Debug.Log("You have " + numCoins + " coins");
         }
 
