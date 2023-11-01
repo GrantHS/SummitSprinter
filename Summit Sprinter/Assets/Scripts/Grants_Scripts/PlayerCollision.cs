@@ -125,21 +125,23 @@ public class PlayerCollision : MonoBehaviour
 
         // for merge items 
 
-        if (other.gameObject.CompareTag("Merge 1"))
+        if (other.gameObject.CompareTag("Special Merge"))
         {
             other.gameObject.SetActive(false);
             Debug.Log("Merged");
             Merge_1On = true;
         }
 
-        if (other.gameObject.CompareTag("Merge 2"))
+        if (other.gameObject.CompareTag("Sky Merge"))
         {
             other.gameObject.SetActive(false);
             Merge_2On = true;
+            GetComponent<Flying>().enabled = true;
+  
         }
 
 
-        if (other.gameObject.CompareTag("Merge 3"))
+        if (other.gameObject.CompareTag("Water Merge"))
         {
             other.gameObject.SetActive(false);
             Merge_3On = true;

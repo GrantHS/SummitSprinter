@@ -825,7 +825,7 @@ GameObject:
   - component: {fileID: 202950597}
   m_Layer: 0
   m_Name: Merge 2
-  m_TagString: Merge 2
+  m_TagString: Sky Merge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3575,7 +3575,7 @@ GameObject:
   - component: {fileID: 941153272}
   m_Layer: 0
   m_Name: Merge 1
-  m_TagString: Merge 1
+  m_TagString: Special Merge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6002,7 +6002,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a4351e153b9bc74194ff6d726037a10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canFly: 1
+  hasWings: 1
+  _isFlying: 0
 --- !u!1 &1336779019 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c01ac77b55b29c04c9e2b54ff5623226,
@@ -6371,7 +6372,7 @@ GameObject:
   - component: {fileID: 1459187942}
   m_Layer: 0
   m_Name: Merge 3
-  m_TagString: Merge 3
+  m_TagString: Water Merge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
