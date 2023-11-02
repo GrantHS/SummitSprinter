@@ -75,10 +75,11 @@ public class Flying : MonoBehaviour
                     break;
                 }
             }
+            
 
             //transform.rotation = _rotation;
             //if (_isFlying) Accelerate();
-            
+
         }
         else if (hasWings && !_isFlying )
         {
@@ -98,7 +99,7 @@ public class Flying : MonoBehaviour
         readyForTakeoff = false;
         //_isFlying = false;
         GravityControl(true);
-        
+        //rb.isKinematic = true;
         yield return new WaitForSeconds(shutOffTime);
         hasWings = true;
     }
@@ -106,6 +107,7 @@ public class Flying : MonoBehaviour
     private void Fly()
     {
         //Debug.Log("Stopping Engine");
+        //rb.isKinematic = true;
         hasWings = true;
         _isFlying = true;
         Accelerate();
@@ -116,22 +118,24 @@ public class Flying : MonoBehaviour
         //Debug.Log(rb.velocity);
 
         /*
-         * Quaternion desiredRotation = Quaternion.Euler(0, 0, maxAngle);
-        transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Time.deltaTime);
+         * 
 
+       // Convert velocity to an angle. (If velocity.x is 0, use 1 instead)
+            float newAngle = Mathf.Atan2(rb.velocity.y, rb.velocity.x);
 
+            // Convert to degrees, and clamp between your desired range.
+            newAngle = Mathf.Clamp(newAngle * Mathf.Rad2Deg, 1, -1);
 
-        // Convert velocity to an angle. (If velocity.x is 0, use 1 instead)
-        float newAngle = Mathf.Atan2(rb.velocity.y, rb.velocity.x);
-
-        // Convert to degrees, and clamp between your desired range.
-        newAngle = Mathf.Clamp(newAngle * Mathf.Rad2Deg, minAngle, maxAngle);
-
-        // Blend from your old angle toward the new angle, smoothly.
-        _angle = Mathf.Lerp(_angle, newAngle, Time.deltaTime);
+            // Blend from your old angle toward the new angle, smoothly.
+            _angle = Mathf.Lerp(_angle, newAngle, Time.deltaTime);
 
         // Set your rotation to this angle.
-        transform.localEulerAngles = new Vector3(0, 0, _angle);
+        Quaternion desiredRotation = Quaternion.Euler(0, 0, _angle);
+        transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Time.deltaTime);
+        //transform.localEulerAngles = new Vector3(0, 0, _angle);
+            
+
+        
         */
 
         //else 
