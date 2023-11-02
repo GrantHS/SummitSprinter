@@ -8241,8 +8241,13 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 43869210888598379, guid: 1bb9b7a092d2e1c40b73259b40c861da,
         type: 3}
+      propertyPath: m_ImplicitCom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 43869210888598379, guid: 1bb9b7a092d2e1c40b73259b40c861da,
+        type: 3}
       propertyPath: m_CenterOfMass.x
-      value: -4
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 1356703095178968570, guid: 1bb9b7a092d2e1c40b73259b40c861da,
         type: 3}

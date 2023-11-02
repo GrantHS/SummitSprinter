@@ -14,8 +14,6 @@ public class PlayerMovement : MonoBehaviour
     private float _topSpeed =10f;
     private float _torque = 50f;
     private float _acceleration = 20f;
-    private Vector3 minZRot = new Vector3(0,0,-25f);
-    private Vector3 maxZRot = new Vector3(0,0,25f);
 
     public PlayerInputActions playerControls;
     private Rigidbody rb;
@@ -99,39 +97,37 @@ public class PlayerMovement : MonoBehaviour
                     }
                     rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
                 }
-                else if (_flying.hasWings)
+                else if (_flying._isFlying)
                 {
+                    _flying.FlightControl(false);
+                
                     //rb.AddTorque(Vector3.forward * _flying.AirTorque, ForceMode.Force);
                     //rb.AddRelativeTorque(Vector3.forward * _flying.AirTorque, ForceMode.Force);
+                    /*
                     transform.Rotate(Vector3.forward * -_flying.AirTorque * Time.deltaTime);
                     if (transform.rotation.z !<= maxZRot.z)
                     {
                         transform.rotation = Quaternion.LookRotation(maxZRot);
                     }
+                    */
                 }
             }
-            else if (_goingBackwards && isGrounded)
+            else if (_goingBackwards)
             {
-               
-                //Debug.Log("moving");
-                rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
-                gasMeter.currentValue -= _powerDrain * Time.deltaTime;
-
-                if (_currentVelocity < _topSpeed)
+                if (isGrounded)
                 {
-                    _currentVelocity -= _acceleration * Time.deltaTime;
-                }
-                rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
+                    //Debug.Log("moving");
+                    rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
+                    gasMeter.currentValue -= _powerDrain * Time.deltaTime;
+
+                    if (_currentVelocity < _topSpeed)
+                    {
+                        _currentVelocity -= _acceleration * Time.deltaTime;
+                    }
+                    rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
+                }                               
                 
-
-                /*
-                else if (_flying.hasWings)
-                {
-                    //rb.AddTorque(Vector3.forward * -_flying.AirTorque, ForceMode.Force);
-                    //rb.AddRelativeTorque(Vector3.forward * -_flying.AirTorque, ForceMode.Force);
-                    transform.Rotate(Vector3.forward * _flying.AirTorque * Time.deltaTime);
-                }
-                */
+                
 
             }
             else
@@ -145,7 +141,14 @@ public class PlayerMovement : MonoBehaviour
                 {
                     _currentVelocity += _acceleration * Time.deltaTime;
                 }
-                
+
+                /*
+                if (!isGrounded)
+                {
+                    Quaternion desiredRotation = Quaternion.Euler(0, 0, 25);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Time.deltaTime);
+                }
+                */
 
             }
         }
@@ -161,23 +164,13 @@ public class PlayerMovement : MonoBehaviour
                 _currentVelocity += _acceleration * Time.deltaTime;
             }
 
-            if (_flying._isFlying) FlyDown();
+            //if (_flying._isFlying) FlyDown();
         }
 
         //Keep on bottom of method
         GroundedWheels = 0;
 
 
-    }
-
-    private void FlyDown()
-    {
-        transform.Rotate(Vector3.forward * _flying.AirTorque * Time.deltaTime);
-        if (transform.rotation.z !>= maxZRot.z)
-        {
-            transform.rotation = Quaternion.LookRotation(minZRot);
-        }
-        rb.AddForce(Vector3.down);
     }
 
     public void Forward()
@@ -214,7 +207,10 @@ public class PlayerMovement : MonoBehaviour
 
         if(_flying._isFlying)
         {
-            _flying.ChangeGravity(true);
+           
+           _flying.FlightControl(true);
+
+            
         }
 
         //idk if this is needed
