@@ -13,15 +13,15 @@ public class Flying : MonoBehaviour
     private Wheel[] wheels;
     public bool hasWings = false;
     public bool _isFlying = false;
-    private bool readyForTakeoff = true;
+    //private bool readyForTakeoff = true;
     private float airTorque = 20f;
     private float _velocity = 0f;
-    private float _topSpeed = 5f;
-    private float _acceleration = 1f;
+    private float _topSpeed = 500f;
+    private float _acceleration = 50f;
     private float shutOffTime = 2f;
-    private Vector3 flyDirection = new Vector3(1, 200, 0);
-    private float maxAngle = -25f;
-    private float minAngle = 40f;
+    private Vector3 flyDirection = new Vector3(-2, 5, 0); //Top Speed: -1000, 2500
+    private float maxAngle = -1f;
+    private float minAngle = 1f;
     private float _angle;
     private Quaternion _rotation;
 
@@ -48,15 +48,10 @@ public class Flying : MonoBehaviour
         rb.useGravity = true;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (playerMovement.isGrounded)
-        {
-            _isFlying = false;
-            readyForTakeoff = true;
-        }
-        else if(playerMovement.GroundedWheels == 0) _isFlying = true;
-        
+
+        CheckWheels();
 
         if (hasWings && _isFlying)
         {
@@ -64,7 +59,7 @@ public class Flying : MonoBehaviour
             //rb.freezeRotation = true;
             foreach (var wheel in wheels)
             {
-                if (!wheel.IsGrounded && readyForTakeoff)
+                if (!wheel.IsGrounded)// readyForTakeoff)
                 {
                     wheel.GetComponent<Rigidbody>().useGravity = false;
                 }
@@ -89,19 +84,52 @@ public class Flying : MonoBehaviour
 
     public void FlightControl(bool landing)
     {
-        if (landing) StartCoroutine(CutEngine());
+        if (landing) CutEngine();//StartCoroutine(CutEngine(shutOffTime));
         else Fly();
     }
-    private IEnumerator CutEngine()
+
+    private void CutEngine()
+    {
+        hasWings = false;
+        //readyForTakeoff = false;
+        GravityControl(true);
+    }
+
+    private IEnumerator CutEngine(float time)
     {
         Debug.Log("Stopping Engine");
         hasWings = false;
-        readyForTakeoff = false;
+        //readyForTakeoff = false;
         //_isFlying = false;
         GravityControl(true);
         //rb.isKinematic = true;
-        yield return new WaitForSeconds(shutOffTime);
+        yield return new WaitForSeconds(time);
         hasWings = true;
+    }
+
+    private void CheckWheels()
+    {
+        int temp = 4;
+        foreach (Wheel wheel in wheels)
+        {
+            if (wheel.IsGrounded)
+            {
+                _isFlying = false;
+                //readyForTakeoff = true;
+                rb.freezeRotation = false;
+            }
+            else
+            {
+                temp--;
+                if(temp <= 0)
+                {
+                    _isFlying = true;
+                    rb.freezeRotation = true;
+                }
+            }
+
+            //Debug.Log("Grouded wheels: " + temp);
+        }
     }
 
     private void Fly()
@@ -110,8 +138,9 @@ public class Flying : MonoBehaviour
         //rb.isKinematic = true;
         hasWings = true;
         _isFlying = true;
-        Accelerate();
         GravityControl(false);
+        Accelerate();
+        
 
 
 
@@ -139,12 +168,12 @@ public class Flying : MonoBehaviour
         */
 
         //else 
-        hasWings = true;
+        //hasWings = true;
     }
 
     private void Accelerate()
     {
-        Debug.Log(_velocity);
+        //Debug.Log(_velocity);
         rb.AddForce(flyDirection * _velocity * Time.deltaTime, ForceMode.Force);
         //rb.velocity += Vector3.left * _velocity * Time.deltaTime;
 
@@ -167,7 +196,7 @@ public class Flying : MonoBehaviour
             {
                 wheel.GetComponent<Rigidbody>().useGravity = true;
             }
-            //rb.useGravity = true;
+            rb.useGravity = true;
         }
         else
         {

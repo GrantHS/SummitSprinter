@@ -825,7 +825,7 @@ GameObject:
   - component: {fileID: 202950597}
   m_Layer: 0
   m_Name: Merge 2
-  m_TagString: Sky Merge
+  m_TagString: Sky Merge 2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3575,7 +3575,7 @@ GameObject:
   - component: {fileID: 941153272}
   m_Layer: 0
   m_Name: Merge 1
-  m_TagString: Special Merge
+  m_TagString: Sky Merge 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6377,7 +6377,7 @@ GameObject:
   - component: {fileID: 1459187942}
   m_Layer: 0
   m_Name: Merge 3
-  m_TagString: Water Merge
+  m_TagString: Sky Merge 3
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8252,6 +8252,11 @@ PrefabInstance:
     - target: {fileID: 43869210888598379, guid: 1bb9b7a092d2e1c40b73259b40c861da,
         type: 3}
       propertyPath: m_CenterOfMass.x
+      value: -1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 43869210888598379, guid: 1bb9b7a092d2e1c40b73259b40c861da,
+        type: 3}
+      propertyPath: m_CenterOfMass.y
       value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 1356703095178968570, guid: 1bb9b7a092d2e1c40b73259b40c861da,
@@ -8297,12 +8302,12 @@ PrefabInstance:
     - target: {fileID: 2715038643758277511, guid: 1bb9b7a092d2e1c40b73259b40c861da,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 259.32
+      value: 265.46
       objectReference: {fileID: 0}
     - target: {fileID: 2715038643758277511, guid: 1bb9b7a092d2e1c40b73259b40c861da,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.36
+      value: 2.59
       objectReference: {fileID: 0}
     - target: {fileID: 2715038643758277511, guid: 1bb9b7a092d2e1c40b73259b40c861da,
         type: 3}

@@ -6,7 +6,7 @@ public class Follower : MonoBehaviour
 {
     private GameObject target;
 
-    [Range(2f, 10f)]
+    [Range(2f, 10f)] //a max of 10 prevents level camera from viewing bottom of level
     [SerializeField]
     [Tooltip("The size of the camera")]
     private float _trackingDistance = 5f;

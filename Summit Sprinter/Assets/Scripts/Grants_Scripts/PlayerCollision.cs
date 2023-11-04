@@ -25,6 +25,9 @@ public class PlayerCollision : MonoBehaviour
     public bool Merge_2On;
     public bool Merge_3On;
 
+    private int _skyMerges = 0;
+    private int _totalMerges = 3;
+
     public GameObject Merge_1;
     public GameObject Merge_2;
     public GameObject Merge_3;
@@ -125,26 +128,34 @@ public class PlayerCollision : MonoBehaviour
 
         // for merge items 
 
-        if (other.gameObject.CompareTag("Special Merge"))
+        if (other.gameObject.CompareTag("Sky Merge 1"))
         {
             other.gameObject.SetActive(false);
-            Debug.Log("Merged");
+            //Debug.Log("Merged");
             Merge_1On = true;
+
+            _skyMerges++;
+            if (_skyMerges >= _totalMerges) GetComponent<Flying>().enabled = true;
         }
 
-        if (other.gameObject.CompareTag("Sky Merge"))
+        if (other.gameObject.CompareTag("Sky Merge 2"))
         {
             other.gameObject.SetActive(false);
             Merge_2On = true;
-            GetComponent<Flying>().enabled = true;
+
+            _skyMerges++;
+            if(_skyMerges >= _totalMerges) GetComponent<Flying>().enabled = true;
   
         }
 
 
-        if (other.gameObject.CompareTag("Water Merge"))
+        if (other.gameObject.CompareTag("Sky Merge 3"))
         {
             other.gameObject.SetActive(false);
             Merge_3On = true;
+
+            _skyMerges++;
+            if (_skyMerges >= _totalMerges) GetComponent<Flying>().enabled = true;
         }
 
 

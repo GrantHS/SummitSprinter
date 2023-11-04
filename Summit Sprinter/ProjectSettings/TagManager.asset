@@ -14,10 +14,10 @@ TagManager:
   - Merge 1
   - Merge 2
   - Merge 3
-  - Sky Merge
-  - Water Merge
-  - Special Merge
   - Spikey
+  - Sky Merge 1
+  - Sky Merge 2
+  - Sky Merge 3
   layers:
   - Default
   - TransparentFX
