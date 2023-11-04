@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public GasMeter gasMeter;
+    private Flying _flying;
     public Wheel[] wheels = new Wheel[4];
     private float _powerDrain = 2f;
     public float _currentVelocity = 0f;
@@ -22,9 +23,14 @@ public class PlayerMovement : MonoBehaviour
     private bool _goingForward = false;
     private bool _goingBackwards = false;
 
+    public bool GoingForward { get => _goingForward; private set => _goingForward = value; }
+    public int GroundedWheels { get => groundedWheels; private set => groundedWheels = value; }
+
     private void Awake()
     {
         playerControls = new PlayerInputActions();
+        _flying = GetComponent<Flying>();
+        _flying.enabled = false;
         //DontDestroyOnLoad(this.gameObject);
     }
 
@@ -59,15 +65,15 @@ public class PlayerMovement : MonoBehaviour
     {
         foreach (Wheel wheel in wheels)
         {
-            if (wheel.isGrounded)
+            if (wheel.IsGrounded)
             {
-                groundedWheels++;
+                GroundedWheels++;
             }
 
             
         }
 
-        if (groundedWheels >= 4)
+        if (GroundedWheels >= 4)
         {
             isGrounded = true;
         }
@@ -77,31 +83,51 @@ public class PlayerMovement : MonoBehaviour
         if (gasMeter.currentValue > 0)
         {
             
-            if (_goingForward)
+            if (GoingForward)
             {
-                //Debug.Log("moving");
-                rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
-                gasMeter.currentValue -= _powerDrain * Time.deltaTime;
-
-                if (_currentVelocity < _topSpeed)
+                if (isGrounded)
                 {
-                    _currentVelocity += _acceleration * Time.deltaTime;
-                }
+                    //Debug.Log("moving");
+                    rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
+                    gasMeter.currentValue -= _powerDrain * Time.deltaTime;
 
-                if (!isGrounded) rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
+                    if (_currentVelocity < _topSpeed)
+                    {
+                        _currentVelocity += _acceleration * Time.deltaTime;
+                    }
+                    rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
+                }
+                else if (_flying._isFlying)
+                {
+                    _flying.FlightControl(false);
+                
+                    //rb.AddTorque(Vector3.forward * _flying.AirTorque, ForceMode.Force);
+                    //rb.AddRelativeTorque(Vector3.forward * _flying.AirTorque, ForceMode.Force);
+                    /*
+                    transform.Rotate(Vector3.forward * -_flying.AirTorque * Time.deltaTime);
+                    if (transform.rotation.z !<= maxZRot.z)
+                    {
+                        transform.rotation = Quaternion.LookRotation(maxZRot);
+                    }
+                    */
+                }
             }
             else if (_goingBackwards)
             {
-                //Debug.Log("moving");
-                rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
-                gasMeter.currentValue -= _powerDrain * Time.deltaTime;
-
-                if (_currentVelocity < _topSpeed)
+                if (isGrounded)
                 {
-                    _currentVelocity -= _acceleration * Time.deltaTime;
-                }
+                    //Debug.Log("moving");
+                    rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
+                    gasMeter.currentValue -= _powerDrain * Time.deltaTime;
 
-               if (!isGrounded) rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
+                    if (_currentVelocity < _topSpeed)
+                    {
+                        _currentVelocity -= _acceleration * Time.deltaTime;
+                    }
+                    rb.AddTorque(Vector3.forward * _torque, ForceMode.Force);
+                }                               
+                
+                
 
             }
             else
@@ -115,6 +141,15 @@ public class PlayerMovement : MonoBehaviour
                 {
                     _currentVelocity += _acceleration * Time.deltaTime;
                 }
+
+                /*
+                if (!isGrounded)
+                {
+                    Quaternion desiredRotation = Quaternion.Euler(0, 0, 25);
+                    transform.rotation = Quaternion.Lerp(transform.rotation, desiredRotation, Time.deltaTime);
+                }
+                */
+
             }
         }
         else
@@ -128,20 +163,27 @@ public class PlayerMovement : MonoBehaviour
             {
                 _currentVelocity += _acceleration * Time.deltaTime;
             }
+
+            //if (_flying._isFlying) FlyDown();
         }
 
         //Keep on bottom of method
-        groundedWheels = 0;
+        GroundedWheels = 0;
 
 
     }
 
     public void Forward()
     {
+        Debug.Log("Gas Pressed");
         //Debug.Log("Forward");
         //_currentSpeed = _startSpeed;
+        if (_flying.isActiveAndEnabled && _flying._isFlying)
+        {
+            _flying.ChangeGravity(false);
+        }
         _goingBackwards = false;
-        _goingForward = true;
+        GoingForward = true;
 
         /*
         rb.AddForce(Vector2.right * _playerSpeed, ForceMode.Force);
@@ -160,8 +202,18 @@ public class PlayerMovement : MonoBehaviour
     public void ButtonRelease()
     {
         //Debug.Log("Released");
-        _goingForward = false;
+        GoingForward = false;
         _goingBackwards = false;
+
+        if(_flying._isFlying)
+        {
+           
+           _flying.FlightControl(true);
+
+            
+        }
+
+        //idk if this is needed
         _currentVelocity -= _acceleration * Time.deltaTime;
     }
 
@@ -169,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Debug.Log("Reverse");
         //_currentSpeed = _startSpeed;
-        _goingForward = false;
+        GoingForward = false;
         _goingBackwards = true;
         /*
         rb.AddForce(Vector2.left * _playerSpeed, ForceMode.Force);
@@ -197,8 +249,8 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator StartingMove()
     {
-        _goingForward = true;
+        GoingForward = true;
         yield return new WaitForSeconds(2.0f);
-        _goingForward = false;
+        GoingForward = false;
     }
 }
