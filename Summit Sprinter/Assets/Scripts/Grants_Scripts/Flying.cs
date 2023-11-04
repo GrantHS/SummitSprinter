@@ -64,7 +64,7 @@ public class Flying : MonoBehaviour
             //rb.freezeRotation = true;
             foreach (var wheel in wheels)
             {
-                if (!wheel.isGrounded && readyForTakeoff)
+                if (!wheel.IsGrounded && readyForTakeoff)
                 {
                     wheel.GetComponent<Rigidbody>().useGravity = false;
                 }

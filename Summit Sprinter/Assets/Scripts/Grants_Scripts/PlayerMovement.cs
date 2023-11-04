@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
     {
         foreach (Wheel wheel in wheels)
         {
-            if (wheel.isGrounded)
+            if (wheel.IsGrounded)
             {
                 GroundedWheels++;
             }
@@ -178,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Gas Pressed");
         //Debug.Log("Forward");
         //_currentSpeed = _startSpeed;
-        if (_flying._isFlying)
+        if (_flying.isActiveAndEnabled && _flying._isFlying)
         {
             _flying.ChangeGravity(false);
         }

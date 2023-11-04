@@ -8,7 +8,8 @@ public class EnemyMovement : MonoBehaviour
     public BadGuy badGuySO;
     private float sensorLength = 50f;
     private float yOffset = 5f;
-    private float despawnTime = 3f;
+    private float despawnTime = 1.5f;
+    private float respawnTime = 5f;
     private Rigidbody rb;
     private GameObject player;
     private bool attacked = false; //did the enemy attack already?
@@ -24,6 +25,7 @@ public class EnemyMovement : MonoBehaviour
         switch (badGuySO.enemyType)
         {
             case Enemies.Spikey:
+                /*
                 //Debug.Log("Spikey position: " + this.transform.localPosition.y + "| Player position: " + player.transform.localPosition.y);
                 RaycastHit hit;
                 Physics.Raycast(transform.position, transform.up, out hit, sensorLength);
@@ -50,6 +52,7 @@ public class EnemyMovement : MonoBehaviour
                         GetComponent<BoxCollider>().isTrigger = true;
                     }
                 }
+                */
                 break;
             case Enemies.Wheelie:
                 break;
@@ -64,19 +67,21 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.collider.gameObject.GetComponent<PlayerMovement>())
+        if(collision.collider.gameObject.GetComponent<Wheel>())
         {
-            player = collision.collider.gameObject;
+            player = collision.collider.gameObject.GetComponent<Wheel>().Player;
 
             switch (badGuySO.enemyType)
             {
                 case Enemies.Spikey:
 
-                    GetComponent<BoxCollider>().isTrigger = true;
+                    SpikeyAttack(player);
+                    //GetComponent<BoxCollider>().isTrigger = true;
                     if (!attacked)
                     {
-                        player.GetComponent<PlayerMovement>().gasMeter.GasDrain += badGuySO.damage;
-                        attacked = true;
+                        //player.GetComponent<PlayerMovement>().gasMeter.GasDrain += badGuySO.damage;
+                        
+                        //attacked = true;
                     }                   
                     break;
                 case Enemies.Wheelie:
@@ -88,6 +93,50 @@ public class EnemyMovement : MonoBehaviour
                     break;
             }
         }
+
+        if (collision.collider.gameObject.GetComponent<PlayerMovement>())
+        {
+            player = collision.collider.gameObject.GetComponent<PlayerMovement>().gameObject;
+
+            switch (badGuySO.enemyType)
+            {
+                case Enemies.Spikey:
+
+                    SpikeyAttack(player);
+                    //GetComponent<BoxCollider>().isTrigger = true;
+                    if (!attacked)
+                    {
+                        //player.GetComponent<PlayerMovement>().gasMeter.GasDrain += badGuySO.damage;
+
+                        //attacked = true;
+                    }
+                    break;
+                case Enemies.Wheelie:
+                    StartCoroutine(Ragdoll(player));
+                    break;
+                case Enemies.Rocketee:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private IEnumerator EnemyRespawn()
+    {
+        this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        this.gameObject.GetComponent<BoxCollider>().enabled = false;
+        yield return new WaitForSeconds(respawnTime);
+        this.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        this.gameObject.GetComponent<BoxCollider>().enabled = true;
+    }
+
+    private void SpikeyAttack(GameObject player)
+    {
+        player.GetComponent<PlayerMovement>().gasMeter.GasDrain += badGuySO.damage;
+        Debug.Log("Attacked Player");
+        StartCoroutine(EnemyRespawn());
+        //attacked = true;
     }
 
     private IEnumerator Ragdoll(GameObject player)
