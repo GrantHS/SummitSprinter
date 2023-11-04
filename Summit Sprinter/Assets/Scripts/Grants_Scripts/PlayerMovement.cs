@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
 
     public bool isGrounded = true;
-    private int groundedWheels = 0;
+    private int groundedWheels;
     private bool _goingForward = false;
     private bool _goingBackwards = false;
 
@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        groundedWheels = 0;
         playerControls = new PlayerInputActions();
         _flying = GetComponent<Flying>();
         _flying.enabled = false;
@@ -45,39 +46,42 @@ public class PlayerMovement : MonoBehaviour
         //_reverse = playerControls.PlayerMovement.Reverse;
     }
 
-    private void OnDisable()
-    {
-       // _move.Disable();
-        //_reverse.Disable(); 
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Vector3.Clamp
-    }
-
-    public void Move(InputAction.CallbackContext context)
-    {
-       // _moveDirection = _move.ReadValue<Vector2>();
-    }
-
     private void FixedUpdate()
     {
+     
         foreach (Wheel wheel in wheels)
         {
+            //Debug.Log(wheel.name + " is grounded = " + wheel.IsGrounded);
             if (wheel.IsGrounded)
             {
-                GroundedWheels++;
+                groundedWheels++;
+
+                if (groundedWheels >= 4)
+                {
+                    groundedWheels = 4;
+                    isGrounded = true;
+                }
+                else isGrounded = false;
+            }
+            else if (!wheel.IsGrounded)
+            {
+                if(groundedWheels > 0)
+                {
+                    groundedWheels--;
+                }
+                else if (groundedWheels <= 0)
+                {
+                    groundedWheels = 0;
+                }
             }
 
             
         }
 
-        if (GroundedWheels >= 4)
-        {
-            isGrounded = true;
-        }
-        else isGrounded = false;
+
+
+        //Debug.Log("Grounded Wheels: " + groundedWheels);
+
 
         //Debug.Log("Current Speed: " + _currentVelocity);
         if (gasMeter.currentValue > 0)
@@ -168,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Keep on bottom of method
-        GroundedWheels = 0;
+        //GroundedWheels = 0;
 
 
     }
@@ -176,27 +180,16 @@ public class PlayerMovement : MonoBehaviour
     public void Forward()
     {
         Debug.Log("Gas Pressed");
-        //Debug.Log("Forward");
-        //_currentSpeed = _startSpeed;
-        if (_flying.isActiveAndEnabled && _flying._isFlying)
-        {
-            _flying.ChangeGravity(false);
-        }
+
         _goingBackwards = false;
         GoingForward = true;
-
-        /*
-        rb.AddForce(Vector2.right * _playerSpeed, ForceMode.Force);
-        if (Vector2.right == null)
-        {
-            Debug.Log("null Vector");
-            //rb.AddForce(Vector2.right * _playerSpeed, ForceMode.Force);
-        }
-        Debug.Log("Grounded: " + isGrounded);
         
-
-        _playerSpeed = 25f;
-        */
+        if (_flying._isFlying)
+        {
+            _flying.FlightControl(false);
+        }
+        
+        
     }
 
     public void ButtonRelease()
@@ -219,22 +212,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void Reverse()
     {
-        //Debug.Log("Reverse");
-        //_currentSpeed = _startSpeed;
         GoingForward = false;
         _goingBackwards = true;
-        /*
-        rb.AddForce(Vector2.left * _playerSpeed, ForceMode.Force);
-        if (isGrounded)
-        {
-            Debug.Log("Reverse");
-            //rb.AddForce(Vector2.left * _playerSpeed, ForceMode.Force);
-        }
-        Debug.Log("Grounded: " + isGrounded);
-        
-
-        _playerSpeed = -25f;
-        */
     }
 
 

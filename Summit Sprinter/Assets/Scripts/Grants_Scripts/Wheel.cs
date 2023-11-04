@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Wheel : MonoBehaviour
 {
-    private bool isGrounded;
+    public bool isGrounded;
     private GameObject player;
     private float respawnTime = 3f;
     private EnemyMovement enemyMovement;
@@ -18,14 +18,14 @@ public class Wheel : MonoBehaviour
     private void Awake()
     {
         Player = GetComponent<ConfigurableJoint>().connectedBody.gameObject;
-        Debug.Log("Player = " + Player.name);
+        //Debug.Log("Player = " + Player.name);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            IsGrounded = true;
+            isGrounded = true;
         }
 
         if (collision.gameObject.CompareTag("Spikey"))
@@ -40,9 +40,17 @@ public class Wheel : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            IsGrounded = false;
+            isGrounded = false;
         }
     }
 
-    
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
+
 }
