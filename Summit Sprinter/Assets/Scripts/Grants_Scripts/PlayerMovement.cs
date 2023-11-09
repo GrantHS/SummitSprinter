@@ -28,10 +28,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        
         groundedWheels = 0;
         playerControls = new PlayerInputActions();
-        _flying = GetComponent<Flying>();
+        _flying = this.gameObject.GetComponent<Flying>();
         _flying.enabled = false;
+        Debug.Log("Awake!");
         //DontDestroyOnLoad(this.gameObject);
     }
 
@@ -48,7 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-     
+
+        Forward();
         foreach (Wheel wheel in wheels)
         {
             //Debug.Log(wheel.name + " is grounded = " + wheel.IsGrounded);
@@ -183,7 +186,10 @@ public class PlayerMovement : MonoBehaviour
 
         _goingBackwards = false;
         GoingForward = true;
-        
+        if(_flying == null)
+        {
+            Debug.Log("Flying script null");
+        }
         if (_flying._isFlying)
         {
             _flying.FlightControl(false);
