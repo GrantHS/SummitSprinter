@@ -16,14 +16,15 @@ public class Flying : MonoBehaviour
     //private bool readyForTakeoff = true;
     private float airTorque = 20f;
     private float _velocity = 0f;
-    private float _topSpeed = 500f;
-    private float _acceleration = 50f;
+    private float _topSpeed = 250f;
+    private float _acceleration = 25f;
     private float shutOffTime = 2f;
     private Vector3 flyDirection = new Vector3(-2, 5, 0); //Top Speed: -1000, 2500
     private float maxAngle = -1f;
     private float minAngle = 1f;
     private float _angle;
     private Quaternion _rotation;
+    private bool checkingWheels = false;
 
     public float AirTorque { get => airTorque; private set => airTorque = value; }
 
@@ -50,8 +51,7 @@ public class Flying : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        CheckWheels();
+        if(!checkingWheels) CheckWheels();
 
         if (hasWings && _isFlying)
         {
@@ -109,6 +109,7 @@ public class Flying : MonoBehaviour
 
     private void CheckWheels()
     {
+        checkingWheels = true;
         int temp = 4;
         foreach (Wheel wheel in wheels)
         {
@@ -130,11 +131,12 @@ public class Flying : MonoBehaviour
 
             //Debug.Log("Grouded wheels: " + temp);
         }
+        checkingWheels = false;
     }
 
     private void Fly()
     {
-        //Debug.Log("Stopping Engine");
+        Debug.Log("flying");
         //rb.isKinematic = true;
         hasWings = true;
         _isFlying = true;

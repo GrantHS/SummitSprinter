@@ -148,15 +148,18 @@ public class PlayerCollision : MonoBehaviour
   
         }
 
-
+        
         if (other.gameObject.CompareTag("Sky Merge 3"))
         {
+            
             other.gameObject.SetActive(false);
             Merge_3On = true;
 
             _skyMerges++;
             if (_skyMerges >= _totalMerges) GetComponent<Flying>().enabled = true;
+            
         }
+        
 
 
 

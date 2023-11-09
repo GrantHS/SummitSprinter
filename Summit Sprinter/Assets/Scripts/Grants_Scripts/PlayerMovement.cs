@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
 
-        Forward();
+        //Forward();
         foreach (Wheel wheel in wheels)
         {
             //Debug.Log(wheel.name + " is grounded = " + wheel.IsGrounded);
