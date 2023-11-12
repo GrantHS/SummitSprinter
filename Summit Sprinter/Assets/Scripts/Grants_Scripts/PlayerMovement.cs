@@ -11,9 +11,9 @@ public class PlayerMovement : MonoBehaviour
     public Wheel[] wheels = new Wheel[4];
     private float _powerDrain = 2f;
     public float _currentVelocity = 0f;
-    private float _topSpeed =10f;
+    private float _topSpeed =20f;
     private float _torque = 50f;
-    private float _acceleration = 20f;
+    private float _acceleration = 10f;
 
     public PlayerInputActions playerControls;
     private Rigidbody rb;
@@ -37,7 +37,11 @@ public class PlayerMovement : MonoBehaviour
         //DontDestroyOnLoad(this.gameObject);
     }
 
-    
+    private void Start()
+    {
+        GameManager.Instance.playerStartPos = this.transform.position;
+    }
+
 
     private void OnEnable()
     {

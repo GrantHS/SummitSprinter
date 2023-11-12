@@ -112,7 +112,7 @@ public class PlayerCollision : MonoBehaviour
         if (other.gameObject.CompareTag("End"))
         {
             other.gameObject.SetActive(false);
-            //Debug.Log("You win!");
+            Debug.Log("You win!!!!!");
         }
 
         if (other.gameObject.CompareTag("Skrap"))
@@ -165,18 +165,29 @@ public class PlayerCollision : MonoBehaviour
 
     }
 
+    public void ResetPosition()
+    {
+        _playerMovement._currentVelocity = 0;
+        GameManager.Instance.InvokeDeath(this.gameObject, respawnTime, spawnPos, spawnRot);
+        foreach (Wheel wheel in _playerMovement.wheels)
+        {
+            wheel.Respawn();
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("End"))
         {
-            GameObject go = collision.gameObject;
-            Debug.Log("colliding with " + go.name);
+            //GameObject go = collision.gameObject;
+            //Debug.Log("colliding with " + go.name);
 
-            StartCoroutine(FlyAway(go, 5f));
-
-            mainUI.SetActive(false);
-            endUI.SetActive(true);
-            endUI.GetComponent<PauseMenu>().isPaused = true;
+            //StartCoroutine(FlyAway(go, 5f));
+            //this.gameObject.SetActive(false);
+            //ResetPosition();
+            GameManager.Instance.OnGameWin();
+            //mainUI.SetActive(false);
+            //endUI.SetActive(true);
         }
     }
 

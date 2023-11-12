@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Follower : MonoBehaviour
 {
-    private GameObject target;
+    public GameObject target;
 
     [Range(2f, 10f)] //a max of 10 prevents level camera from viewing bottom of level
     [SerializeField]
@@ -26,12 +26,12 @@ public class Follower : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        target = FindObjectOfType<PlayerMovement>().gameObject;
+        
         _cameraOffset = new Vector3(-6.50f, 0, 10f);
     }
     void Start()
     {
-        
+        //target = GameManager.Instance._playerVehicle;
         _targetLocation = target.transform.position;
         _currentLocation = target.transform.position + _cameraOffset;
         //_currentLocation.z = _trackingDistance;

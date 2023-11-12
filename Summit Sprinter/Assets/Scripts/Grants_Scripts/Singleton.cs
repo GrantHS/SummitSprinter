@@ -16,6 +16,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
 
                 if(_instance == null)
                 {
+                    Debug.Log("Creating Game Manager");
                     GameObject obj = new GameObject();
                     obj.name = typeof(T).Name;
                     _instance = obj.AddComponent<T>();
@@ -35,6 +36,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
         }
         else
         {
+            Debug.Log("Destroying Game Manager");
             Destroy(gameObject);
 
         }

@@ -9,8 +9,8 @@ public class Wheel : MonoBehaviour
 {
     public bool isGrounded;
     private GameObject player;
-    private float respawnTime = 3f;
-    private EnemyMovement enemyMovement;
+    public Vector3 spawnPos;
+    public Quaternion spawnRot;
 
     public bool IsGrounded { get => isGrounded; private set => isGrounded = value; }
     public GameObject Player { get => player; private set => player = value; }
@@ -18,7 +18,13 @@ public class Wheel : MonoBehaviour
     private void Awake()
     {
         Player = GetComponent<ConfigurableJoint>().connectedBody.gameObject;
+        spawnPos = transform.position;
         //Debug.Log("Player = " + Player.name);
+    }
+
+    public void Respawn()
+    {
+        GameManager.Instance.InvokeDeath(this.gameObject, 3f, spawnPos, spawnRot);
     }
 
     private void OnCollisionEnter(Collision collision)
