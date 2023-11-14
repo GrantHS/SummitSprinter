@@ -23,6 +23,7 @@ TagManager:
   - Water Merge
   - Undefined
   - Wheelie
+  - FinishLine
   layers:
   - Default
   - TransparentFX
