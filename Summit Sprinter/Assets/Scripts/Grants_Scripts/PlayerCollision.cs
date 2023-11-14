@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerCollision : MonoBehaviour
+public class PlayerCollision : MonoBehaviour , IGameData
 {
     public PlayerDataSO playerDataSO;
     private PlayerMovement _playerMovement;
@@ -32,6 +32,12 @@ public class PlayerCollision : MonoBehaviour
     public GameObject Merge_2;
     public GameObject Merge_3;
 
+    // Audio Sources for collisions
+    public AudioSource audioSource;
+    public AudioClip enemyCollisionSound;
+
+
+
 
 
     private void Awake()
@@ -54,7 +60,9 @@ public class PlayerCollision : MonoBehaviour
 
     private void Update()
     {
-        if(transform.position.y <= minYpos)
+       
+
+        if (transform.position.y <= minYpos)
         {
             GameManager.Instance.InvokeDeath(this.gameObject, respawnTime, spawnPos, spawnRot);
         }
@@ -91,6 +99,16 @@ public class PlayerCollision : MonoBehaviour
 
 
     }
+
+
+    private void PlayEnemyCollisionSound()
+    {
+        if (enemyCollisionSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(enemyCollisionSound);
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -159,11 +177,11 @@ public class PlayerCollision : MonoBehaviour
             if (_skyMerges >= _totalMerges) GetComponent<Flying>().enabled = true;
             
         }
-        
-
 
 
     }
+
+  
 
     public void ResetPosition()
     {
@@ -188,6 +206,18 @@ public class PlayerCollision : MonoBehaviour
             GameManager.Instance.OnGameWin();
             //mainUI.SetActive(false);
             //endUI.SetActive(true);
+        }
+
+
+        if (collision.gameObject.CompareTag("Spikey"))
+        {
+            audioSource.Play();
+            Debug.Log("Played Sound");
+        }
+
+        if (collision.gameObject.CompareTag("Wheelie"))
+        {
+            audioSource.Play();
         }
     }
 
@@ -226,18 +256,42 @@ public class PlayerCollision : MonoBehaviour
         return child;
     }
 
-        /*
-        private IEnumerator Respawn(float respawnTime)
-        {
-            //this.gameObject.GetComponent<Renderer>().enabled = false;
-            gameObject.SetActive(false);
-            transform.position = spawnPos;
-            transform.rotation = spawnRot;
-            _playerMovement._currentVelocity = 0;
-            yield return new WaitForSeconds(respawnTime);
-            gameObject.SetActive(true);
-            //this.gameObject.GetComponent<Renderer>().enabled = true;
+  
+    public void LoadData(GameData data)
+    {
+        this.playerDataSO.numCoins = data.CoinsCount;
+        coinCount.text = ": " + playerDataSO.numCoins.ToString();
+    }
 
-        }
-        */
+
+    public void SaveData(ref GameData data)
+    {
+        data.CoinsCount = this.playerDataSO.numCoins;
+       // coinCount.text = ": " + playerDataSO.numCoins.ToString();
+    }
+
+
+   
+
+
+
+
+
+
 }
+
+    /*
+    private IEnumerator Respawn(float respawnTime)
+    {
+        //this.gameObject.GetComponent<Renderer>().enabled = false;
+        gameObject.SetActive(false);
+        transform.position = spawnPos;
+        transform.rotation = spawnRot;
+        _playerMovement._currentVelocity = 0;
+        yield return new WaitForSeconds(respawnTime);
+        gameObject.SetActive(true);
+        //this.gameObject.GetComponent<Renderer>().enabled = true;
+
+    }
+    */
+

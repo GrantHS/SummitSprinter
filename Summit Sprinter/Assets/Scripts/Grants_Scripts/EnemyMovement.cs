@@ -14,6 +14,10 @@ public class EnemyMovement : MonoBehaviour
     private GameObject player;
     private bool attacked = false; //did the enemy attack already?
 
+
+
+  
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -70,7 +74,7 @@ public class EnemyMovement : MonoBehaviour
         if(collision.collider.gameObject.GetComponent<Wheel>())
         {
             player = collision.collider.gameObject.GetComponent<Wheel>().Player;
-
+          
             switch (badGuySO.enemyType)
             {
                 case Enemies.Spikey:
@@ -149,5 +153,8 @@ public class EnemyMovement : MonoBehaviour
 
     }
 
+
+
+    
 
 }

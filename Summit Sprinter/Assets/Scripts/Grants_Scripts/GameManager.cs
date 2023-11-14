@@ -41,7 +41,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Game Manager Active");
         levelUI.SetActive(true);
         startUI.SetActive(false);
-        winUI.SetActive(false);
+       // winUI.SetActive(false);
         mainCam.SetActive(true);
         playerObject.SetActive(true);
     }
@@ -61,7 +61,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Game Manager Active");
         levelUI.SetActive(false);
         startUI.SetActive(true);
-        winUI.SetActive(false);
+      //  winUI.SetActive(false);
         mainCam.SetActive(true);
         playerObject.SetActive(true);
 

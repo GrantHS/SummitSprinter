@@ -26,17 +26,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 861a6be81afa0664cb658172c1fee764,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 186.42
+      value: 98.528
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 861a6be81afa0664cb658172c1fee764,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.019
+      value: 2.093
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 861a6be81afa0664cb658172c1fee764,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.019104958
+      value: 0.018910408
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 861a6be81afa0664cb658172c1fee764,
         type: 3}
@@ -82,6 +82,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 861a6be81afa0664cb658172c1fee764,
+        type: 3}
+      propertyPath: m_TagString
+      value: Spikey
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -167,3 +172,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   badGuySO: {fileID: 11400000, guid: 264e8e287820aed43a3fe293c289a149, type: 2}
+  audioSource: {fileID: 0}
+  enemyCollisionSound: {fileID: 8300000, guid: b3b8b52f4569fcb4080066b746043c3c, type: 3}

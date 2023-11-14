@@ -21,6 +21,8 @@ TagManager:
   - Sky Merge
   - Special Merge
   - Water Merge
+  - Undefined
+  - Wheelie
   layers:
   - Default
   - TransparentFX
