@@ -26,6 +26,10 @@ public class PlayerMovement : MonoBehaviour
     public bool GoingForward { get => _goingForward; private set => _goingForward = value; }
     public int GroundedWheels { get => groundedWheels; private set => groundedWheels = value; }
 
+    //Audio Sources
+    public AudioSource idle, acceleration;
+
+
     private void Awake()
     {
         
@@ -34,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
         _flying = this.gameObject.GetComponent<Flying>();
         _flying.enabled = false;
         Debug.Log("Awake!");
+        
         //DontDestroyOnLoad(this.gameObject);
     }
 
@@ -96,6 +101,16 @@ public class PlayerMovement : MonoBehaviour
             
             if (GoingForward)
             {
+                if (idle.isPlaying)
+                {
+                    idle.Stop();
+                }
+
+                if(!acceleration.isPlaying)
+                {
+                    acceleration.Play();
+                }
+
                 if (isGrounded)
                 {
                     //Debug.Log("moving");
@@ -125,6 +140,12 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (_goingBackwards)
             {
+                if (!idle.isPlaying)
+                {
+                    if (acceleration.isPlaying) acceleration.Stop();
+                    idle.Play();
+                }
+
                 if (isGrounded)
                 {
                     //Debug.Log("moving");
@@ -143,6 +164,11 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
+                if (!idle.isPlaying)
+                {
+                    if (acceleration.isPlaying) acceleration.Stop();
+                    idle.Play();
+                }
                 //Debug.Log("not moving");
                 if (_currentVelocity > 0)
                 {
@@ -165,6 +191,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            
             //Debug.Log("Out of gas");
             if (_currentVelocity > 0)
             {
