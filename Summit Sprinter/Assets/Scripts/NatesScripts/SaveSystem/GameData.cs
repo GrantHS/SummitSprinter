@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameData
 {
     public int CoinsCount;
-    public float MouseSens;
+  //  public float MouseSens;
 
     // the values defined in this constructor will be default values 
     //the game starts with when theres no data to load 
@@ -14,7 +14,7 @@ public class GameData
     public GameData()
     {
         this.CoinsCount = 0;
-        this.MouseSens = 0;
+      //  this.MouseSens = 0;
     }
 
 
