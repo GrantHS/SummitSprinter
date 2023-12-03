@@ -27,7 +27,7 @@ public class Follower : MonoBehaviour
     private void Awake()
     {
         
-        _cameraOffset = new Vector3(-6.50f, 0, 10f);
+        _cameraOffset = new Vector3(-10f, 0, 10f);
     }
     void Start()
     {

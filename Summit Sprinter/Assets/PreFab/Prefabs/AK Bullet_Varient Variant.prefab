@@ -8,10 +8,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 96171926062640424, guid: 422eb4cf82ee7ea498605099f7be70a9,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6235194429224149790, guid: 422eb4cf82ee7ea498605099f7be70a9,
         type: 3}
       propertyPath: m_Name
       value: AK Bullet_Varient Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 6758791300643174820, guid: 422eb4cf82ee7ea498605099f7be70a9,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1154232
+      objectReference: {fileID: 0}
+    - target: {fileID: 6758791300643174820, guid: 422eb4cf82ee7ea498605099f7be70a9,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1154232
+      objectReference: {fileID: 0}
+    - target: {fileID: 6758791300643174820, guid: 422eb4cf82ee7ea498605099f7be70a9,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1154232
       objectReference: {fileID: 0}
     - target: {fileID: 6758791300643174820, guid: 422eb4cf82ee7ea498605099f7be70a9,
         type: 3}
@@ -21,12 +41,12 @@ PrefabInstance:
     - target: {fileID: 6758791300643174820, guid: 422eb4cf82ee7ea498605099f7be70a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.41
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6758791300643174820, guid: 422eb4cf82ee7ea498605099f7be70a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.73
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6758791300643174820, guid: 422eb4cf82ee7ea498605099f7be70a9,
         type: 3}
@@ -62,6 +82,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784871160857528196, guid: 422eb4cf82ee7ea498605099f7be70a9,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

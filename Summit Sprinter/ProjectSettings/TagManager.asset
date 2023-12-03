@@ -23,6 +23,7 @@ TagManager:
   - Water Merge
   - Undefined
   - Wheelie
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -59,7 +60,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: New Layer 1
-    uniqueID: 2978562561
     locked: 0

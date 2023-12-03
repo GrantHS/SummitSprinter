@@ -5,15 +5,23 @@ using UnityEngine;
 public class ScreenDestroyer : MonoBehaviour
 {
 
-    private void Start()
+    private void Update()
     {
-        StartCoroutine(destroy());
+        // You can customize the speed of the bullet as needed
+        float bulletSpeed = 50f;
+        // Vector3 direction = Vector3.left * 1; // Use the forward direction of the firePoint
+
+        Vector3 direction = Vector3.left;
+        this.GetComponent<Rigidbody>().velocity = direction * bulletSpeed;
+
+
     }
-   
-    
-    IEnumerator destroy()
+    private void OnTriggerEnter(Collider other)
     {
-        yield return new WaitForSeconds(2);
-        Destroy(gameObject);
+        if (other.CompareTag("Spikey"))
+        {
+            Destroy(other.gameObject);
+        }
     }
+
 }
