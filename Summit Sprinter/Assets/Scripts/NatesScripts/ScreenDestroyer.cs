@@ -18,7 +18,14 @@ public class ScreenDestroyer : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        /*
         if (other.CompareTag("Spikey"))
+        {
+            Destroy(other.gameObject);
+        }
+        */
+
+        if (other.GetComponent<EnemyMovement>())
         {
             Destroy(other.gameObject);
         }

@@ -13,6 +13,7 @@ public class PlayerDataSO : ScriptableObject
     public float playerSpeed;
     public int playerScore;
     public int highScore;
+    
 
 
 }

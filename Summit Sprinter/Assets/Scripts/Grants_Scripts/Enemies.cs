@@ -7,5 +7,11 @@ public enum Enemies
     Wheelie,
 
     //The rocket one (Considering Rockie)
-    Rocketee
+    //Rocketee deprecieated
+
+    //The Hot air balloon guy
+    Looney,
+
+    //The propeller one
+    Floatie
 }
