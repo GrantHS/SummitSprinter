@@ -207,9 +207,10 @@ public class GameManager : Singleton<GameManager>
     {
 
         Debug.Log("paused");
+        pauseUI.SetActive(true);
         Time.timeScale = 0f;
         // this.gameObject.SetActive(true);
-        pauseUI.SetActive(true);
+        
 
 
     }
