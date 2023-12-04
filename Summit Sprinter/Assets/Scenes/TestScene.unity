@@ -11495,6 +11495,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenuController
       objectReference: {fileID: 0}
+    - target: {fileID: 3584192419897635200, guid: 8343891c67078aa4a921f175f0d2085d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3584192419897635202, guid: 8343891c67078aa4a921f175f0d2085d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11548,7 +11553,7 @@ PrefabInstance:
     - target: {fileID: 3584192421012483331, guid: 8343891c67078aa4a921f175f0d2085d,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3584192421376552469, guid: 8343891c67078aa4a921f175f0d2085d,
         type: 3}
@@ -13634,7 +13639,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 227736378958143915}
+      objectReference: {fileID: 1692862689}
+    - target: {fileID: 6183908367804722612, guid: 2ef21042d5a473841bdb0ba7a17c3d96,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Pause
+      objectReference: {fileID: 0}
+    - target: {fileID: 6183908367804722612, guid: 2ef21042d5a473841bdb0ba7a17c3d96,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 7228047140452753397, guid: 2ef21042d5a473841bdb0ba7a17c3d96,
         type: 3}
       propertyPath: Jeep
