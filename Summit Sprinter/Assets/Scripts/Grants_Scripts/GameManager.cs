@@ -17,6 +17,7 @@ public class GameManager : Singleton<GameManager>
     public GameObject startUI;
     public GameObject pauseUI;
     public GameObject winUI;
+    public GameObject creditsUI;
     public GameObject mainCam;
     public Vector3 playerStartPos;
 
@@ -41,6 +42,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Game Manager Active");
         levelUI.SetActive(true);
         startUI.SetActive(false);
+        creditsUI.SetActive(false);
        // winUI.SetActive(false);
         mainCam.SetActive(true);
         playerObject.SetActive(true);
@@ -61,7 +63,8 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("Game Manager Active");
         levelUI.SetActive(false);
         startUI.SetActive(true);
-      //  winUI.SetActive(false);
+        creditsUI.SetActive(false);
+        //winUI.SetActive(false);
         mainCam.SetActive(true);
         playerObject.SetActive(true);
 
@@ -75,6 +78,18 @@ public class GameManager : Singleton<GameManager>
         StartCoroutine(Respawn(player, respawnTime, spawnPos, spawnRot));
     }
 
+    public void OnCreditsPressed()
+    {
+        levelUI.SetActive(false);
+        startUI.SetActive(true);
+        creditsUI.SetActive(true);
+        winUI.SetActive(false);
+        //mainCam.SetActive(true);
+        //playerObject.SetActive(false);
+        pauseUI.SetActive(false);
+
+    }
+
     //Restart
     public void MainMenu()
     {
@@ -83,6 +98,7 @@ public class GameManager : Singleton<GameManager>
         startUI.SetActive(true);
         pauseUI.SetActive(false);
         winUI.SetActive(false);
+        creditsUI.SetActive(false);
         Cursor.visible = true;
 
         playerMovement.ButtonRelease();
