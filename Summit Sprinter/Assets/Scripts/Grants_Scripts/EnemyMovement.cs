@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 
@@ -8,20 +9,35 @@ public class EnemyMovement : MonoBehaviour
     public BadGuy badGuySO;
     private float sensorLength = 50f;
     private float yOffset = 5f;
-    private float despawnTime = 1.5f;
+    private float despawnTime = 1f;
     private float respawnTime = 5f;
     private Rigidbody rb;
     private GameObject player;
     private bool attacked = false; //did the enemy attack already?
 
+    //floatie parameters
+    private bool isFloating = false;
+    private float floatOffset = 5f;
+
+    [Tooltip("only needed for floatie enemies")]
+    public GameObject maxY;
+    [Tooltip("only needed for floatie enemies")]
+    public GameObject minY;
+
+    private float floatTime = 3f;
+
+    Vector3 yPos = Vector3.zero;
 
 
-  
+
+
 
     private void Awake()
     {
+        yPos.y = this.transform.position.y;
+
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
+        if(badGuySO.enemyType != Enemies.Floatie) rb.isKinematic = true;
     }
 
     private void Update()
@@ -60,7 +76,10 @@ public class EnemyMovement : MonoBehaviour
                 break;
             case Enemies.Wheelie:
                 break;
-            case Enemies.Rocketee:
+            case Enemies.Looney:
+                break;
+            case Enemies.Floatie:
+                if (!isFloating) StartCoroutine(Float());
                 break;
             default:
                 break;
@@ -91,7 +110,11 @@ public class EnemyMovement : MonoBehaviour
                 case Enemies.Wheelie:
                     StartCoroutine(Ragdoll(player));
                     break;
-                case Enemies.Rocketee:
+                case Enemies.Looney:
+                    StartCoroutine(Ragdoll(player));
+                    break;
+                case Enemies.Floatie:
+                    SpikeyAttack(player);
                     break;
                 default:
                     break;
@@ -118,12 +141,59 @@ public class EnemyMovement : MonoBehaviour
                 case Enemies.Wheelie:
                     StartCoroutine(Ragdoll(player));
                     break;
-                case Enemies.Rocketee:
+                case Enemies.Looney:
+                    StartCoroutine(Ragdoll(player));
+                    break;
+                case Enemies.Floatie:
+                    SpikeyAttack(player);
                     break;
                 default:
                     break;
             }
         }
+    }
+
+    private IEnumerator Float()
+    {
+        Debug.Log(minY);
+        Debug.Log(maxY);
+        isFloating = true;
+        bool goingUp = transform.position.y <= minY.transform.position.y;
+
+        if(transform.position.y >= maxY.transform.position.y)
+        {
+            goingUp = false;
+            
+        }    
+        if(transform.position.y <= minY.transform.position.y) 
+        {
+            goingUp = true;
+        }
+
+        if(goingUp)
+        {
+            Debug.Log("Going Up");
+            rb.velocity = Vector3.up * badGuySO.speed;
+
+            /*
+            yPos += Vector3.up * badGuySO.speed * Time.deltaTime;
+            transform.position += yPos;
+            */
+        }
+        else
+        {
+            Debug.Log("Going Down");
+            rb.velocity = Vector3.down * badGuySO.speed;
+
+            /*
+            yPos += Vector3.down * badGuySO.speed * Time.deltaTime;
+            transform.position += yPos;
+            */
+        }
+
+        yield return new WaitForSeconds(floatTime);
+        isFloating = false;
+        
     }
 
     private IEnumerator EnemyRespawn()
