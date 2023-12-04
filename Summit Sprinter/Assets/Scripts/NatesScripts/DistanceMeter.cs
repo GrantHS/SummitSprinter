@@ -5,18 +5,33 @@ using UnityEngine.UI;
 
 public class DistanceMeter : MonoBehaviour
 {
-    public Transform Jeep;
-    public float targetDistance = -2000;
-    public Slider DisSlider;
+    public Transform trackedObject;
+    public Slider xAxisSlider;
+    public float sliderSpeed = 1.0f;
+    public float maxSliderValue = 21f; 
+    private float previousXPosition;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        float playerXPosition = Jeep.position.x;
+        if (trackedObject != null)
+        {
+            float xPosition = trackedObject.position.x;
 
-        float remainingDistance = Mathf.Max(0f, targetDistance - playerXPosition);
+            if (xPosition != previousXPosition)
+            {
+                float xMovement = Mathf.Max(0f, previousXPosition - xPosition);
 
-        DisSlider.value = 1f - (remainingDistance / targetDistance);
+                UpdateSlider(xMovement);
 
+                previousXPosition = xPosition;
+            }
+        }
+    }
+
+    private void UpdateSlider(float xMovement)
+    {
+        xAxisSlider.value += xMovement * sliderSpeed * Time.deltaTime;
+
+         xAxisSlider.value = Mathf.Clamp(xAxisSlider.value, 0f, maxSliderValue);
     }
 }
