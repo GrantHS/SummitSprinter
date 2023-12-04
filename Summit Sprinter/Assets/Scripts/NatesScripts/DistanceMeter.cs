@@ -6,30 +6,17 @@ using UnityEngine.UI;
 public class DistanceMeter : MonoBehaviour
 {
     public Transform Jeep;
-    public float xPos = -100f;
+    public float targetDistance = -2000;
     public Slider DisSlider;
 
-    private float previousXPosition;
-    private float toatalDis;
-
-    //public Text Distance;
     // Update is called once per frame
     void Update()
     {
-        
         float playerXPosition = Jeep.position.x;
-        float disTraveled = Mathf.Abs(previousXPosition - playerXPosition);
-        toatalDis += disTraveled;
 
-        DisSlider.value = toatalDis / Mathf.Abs(xPos);
+        float remainingDistance = Mathf.Max(0f, targetDistance - playerXPosition);
 
-      
-        previousXPosition = playerXPosition;
-        // Debug.Log("Dis Traveled:" + toatalDis);
+        DisSlider.value = 1f - (remainingDistance / targetDistance);
 
-
-        //Distance.text = "Distance: " + Mathf.RoundToInt(toatalDis).ToString();
     }
-
-
 }
