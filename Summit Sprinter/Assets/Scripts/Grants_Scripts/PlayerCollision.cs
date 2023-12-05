@@ -129,7 +129,8 @@ public class PlayerCollision : MonoBehaviour , IGameData
 
         if (other.gameObject.CompareTag("End"))
         {
-            other.gameObject.SetActive(false);
+            //other.gameObject.SetActive(false);
+            GameManager.Instance.OnGameWin();
             Debug.Log("You win!!!!!");
         }
 

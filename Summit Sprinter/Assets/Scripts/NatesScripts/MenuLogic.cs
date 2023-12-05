@@ -13,10 +13,15 @@ public class MenuLogic : MonoBehaviour
     public GameObject pauseMenuCanvas;
     public GameObject player;
 
+    private Vector3 camPos;
+    private float zOffset = 10f;
 
 
     private void Awake()
     {
+        camPos = player.transform.position;
+        camPos.z += zOffset;
+        GetComponentInChildren<Camera>().gameObject.transform.position = camPos;
         LevelUICanvas.SetActive(false);
     }
     public void HowToPlay()
