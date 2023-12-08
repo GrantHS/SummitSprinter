@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.Rendering;
 
 
 //Some functions moved from MenuLogic.cs for organization
@@ -11,7 +12,7 @@ public class GameManager : Singleton<GameManager>
     private PlayerMovement playerMovement;
     public GameObject playerObject;
     public GameObject _playerVehicle;
-    public Canvas deathCanvas;
+    public GameObject deathCanvas;
     private float idleDrain = 0.5f;
     public GameObject levelUI;
     public GameObject startUI;
@@ -43,7 +44,6 @@ public class GameManager : Singleton<GameManager>
         levelUI.SetActive(true);
         startUI.SetActive(false);
         creditsUI.SetActive(false);
-       // winUI.SetActive(false);
         mainCam.SetActive(true);
         playerObject.SetActive(true);
     }
@@ -73,6 +73,16 @@ public class GameManager : Singleton<GameManager>
         
     }
 
+    public void OnGameLose()
+    {
+        levelUI.SetActive(false);
+        startUI.SetActive(false);
+        creditsUI.SetActive(false);
+        deathCanvas.SetActive(true);
+        winUI.SetActive(false);
+        pauseUI.SetActive(false);
+    }
+
     public void InvokeDeath(GameObject player, float respawnTime, Vector3 spawnPos, Quaternion spawnRot)
     {
         StartCoroutine(Respawn(player, respawnTime, spawnPos, spawnRot));
@@ -99,6 +109,7 @@ public class GameManager : Singleton<GameManager>
         pauseUI.SetActive(false);
         winUI.SetActive(false);
         creditsUI.SetActive(false);
+        deathCanvas.SetActive(false);
         Cursor.visible = true;
 
         playerMovement.ButtonRelease();

@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Wheel[] wheels = new Wheel[4];
     private float _powerDrain = 2f;
     public float _currentVelocity = 0f;
-    private float _topSpeed =20f;
+    private float _topSpeed =75f;
     private float _torque = 50f;
     private float _acceleration = 10f;
 
@@ -115,13 +115,14 @@ public class PlayerMovement : MonoBehaviour
                 {
                     //Debug.Log("moving");
                     rb.AddForce(Vector3.left * _currentVelocity, ForceMode.Force);
+                    rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
                     gasMeter.currentValue -= _powerDrain * Time.deltaTime;
 
                     if (_currentVelocity < _topSpeed)
                     {
-                        _currentVelocity += _acceleration * Time.deltaTime;
+                        _currentVelocity += _acceleration;// Time.deltaTime;
                     }
-                    rb.AddTorque(Vector3.forward * -_torque, ForceMode.Force);
+                    
                 }
                 else if (_flying._isFlying)
                 {
@@ -252,16 +253,6 @@ public class PlayerMovement : MonoBehaviour
         GoingForward = false;
         _goingBackwards = true;
     }
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        rb.AddForce(Vector2.left * _currentVelocity, ForceMode.Force);
-
-    }
-
 
     public IEnumerator StartingMove()
     {
